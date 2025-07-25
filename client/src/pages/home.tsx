@@ -141,14 +141,35 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="w-full max-w-7xl mx-auto px-4 z-10">
+        {/* Full-screen Unicorn Studio Background */}
+        <div 
+          className="absolute inset-0 w-full h-full"
+          style={{ zIndex: 1 }}
+        >
+          <div 
+            data-us-project="FJCMeOcu2KP1kPy5ZnwU" 
+            style={{ 
+              width: '100vw', 
+              height: '100vh',
+              position: 'absolute',
+              top: 0,
+              left: 0
+            }}
+          />
+          {/* Gradient overlays to blend with dark theme */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" style={{ zIndex: 2 }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" style={{ zIndex: 2 }} />
+        </div>
+
+        <div className="w-full max-w-7xl mx-auto px-4 relative" style={{ zIndex: 10 }}>
           <div className="flex flex-col items-center text-center mb-8">
             <motion.h1 
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="text-6xl md:text-8xl font-black mb-4 text-glitch animate-glow"
+              className="text-6xl md:text-8xl font-black mb-4 text-glitch animate-glow drop-shadow-2xl"
               data-text="DEVELOPER"
+              style={{ textShadow: '0 0 30px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 255, 136, 0.4)' }}
             >
               DEVELOPER
             </motion.h1>
@@ -156,138 +177,25 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className="text-2xl md:text-4xl font-light text-neon-blue mb-8 animate-glow"
+              className="text-2xl md:text-4xl font-light text-neon-blue mb-8 animate-glow drop-shadow-xl"
+              style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.8)' }}
             >
               & Creative Technologist
             </motion.h2>
           </div>
-          
-          {/* Unicorn Studio Embed */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="flex justify-center mb-8"
-          >
-            <div 
-              className="relative overflow-hidden rounded-xl glass-effect neon-border animate-pulse-neon"
-              style={{ 
-                width: 'min(1440px, 100vw)', 
-                height: '800px', 
-                maxWidth: '100%' 
-              }}
-            >
-              {/* Enhanced 3D-like placeholder while loading */}
-              <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    {/* 3D Geometric Animation */}
-                    <motion.div
-                      className="relative w-32 h-32 mx-auto mb-6"
-                      animate={{ rotateY: 360, rotateX: 180 }}
-                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                    >
-                      <motion.div 
-                        className="absolute inset-0 border-4 border-neon-blue rounded-lg"
-                        animate={{ rotateZ: 45 }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                      />
-                      <motion.div 
-                        className="absolute inset-4 border-2 border-neon-purple rounded-lg"
-                        animate={{ rotateZ: -45 }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                      />
-                      <motion.div 
-                        className="absolute inset-8 border border-neon-green rounded-lg"
-                        animate={{ rotateZ: 90 }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                      />
-                    </motion.div>
-                    
-                    <motion.h3 
-                      animate={{ 
-                        scale: [1, 1.05, 1],
-                        textShadow: [
-                          "0 0 10px #00D4FF",
-                          "0 0 20px #00D4FF, 0 0 30px #B838FF",
-                          "0 0 10px #00D4FF"
-                        ]
-                      }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className="text-3xl font-bold text-neon-blue mb-2"
-                    >
-                      Interactive 3D Experience
-                    </motion.h3>
-                    <motion.p 
-                      animate={{ opacity: [0.6, 1, 0.6] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="text-neon-purple text-lg"
-                    >
-                      Initializing Creative Showcase...
-                    </motion.p>
-                  </div>
-                </div>
-                
-                {/* Animated particles background */}
-                <div className="absolute inset-0 overflow-hidden">
-                  {Array.from({ length: 20 }).map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1 h-1 bg-neon-blue rounded-full"
-                      style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                      }}
-                      animate={{
-                        y: [0, -100, 0],
-                        opacity: [0, 1, 0],
-                        scale: [0, 1, 0]
-                      }}
-                      transition={{
-                        duration: 3 + Math.random() * 2,
-                        repeat: Infinity,
-                        delay: Math.random() * 2
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-              
-              {/* Unicorn Studio Container */}
-              <div 
-                data-us-project="FJCMe0cu2KP1kPy5ZniwU" 
-                style={{ 
-                  width: 'min(1440px, 100vw)', 
-                  height: '900px', 
-                  maxWidth: '100%',
-                  position: 'relative',
-                  top: '0px',
-                  zIndex: 10
-                }}
-              />
-              
-              {/* Gradient overlay to hide watermark */}
-              <div 
-                className="absolute bottom-0 left-0 right-0 z-20"
-                style={{ 
-                  height: '120px',
-                  background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%)'
-                }}
-              />
-            </div>
-          </motion.div>
+
           
           {/* CTA Buttons */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.9 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           >
-            <Button className="magnetic-hover glass-effect px-8 py-4 rounded-full border border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-black transition-all duration-300">
+            <Button className="magnetic-hover glass-effect px-10 py-5 rounded-full border-2 border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-black transition-all duration-300 text-lg font-semibold backdrop-blur-md shadow-2xl">
               View My Work
             </Button>
-            <Button className="magnetic-hover glass-effect px-8 py-4 rounded-full border border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-black transition-all duration-300">
+            <Button className="magnetic-hover glass-effect px-10 py-5 rounded-full border-2 border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-black transition-all duration-300 text-lg font-semibold backdrop-blur-md shadow-2xl">
               Download Resume
             </Button>
           </motion.div>
