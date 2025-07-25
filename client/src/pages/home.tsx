@@ -1,5 +1,15 @@
 import { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
+
+// Type declarations for UnicornStudio
+declare global {
+  interface Window {
+    UnicornStudio: {
+      isInitialized: boolean;
+      init?: () => void;
+    };
+  }
+}
 import { ParticleBackground } from '@/components/ui/particle-background';
 import { TicTacToe } from '@/components/games/tic-tac-toe';
 import { SnakeGame } from '@/components/games/snake-game';
@@ -36,7 +46,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Load Unicorn Studio script
+    // Load the exact Unicorn Studio script you provided
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.innerHTML = `
@@ -44,18 +54,27 @@ export default function Home() {
         if(!window.UnicornStudio){
           window.UnicornStudio={isInitialized:!1};
           var i=document.createElement("script");
-          i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",
+          i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
           i.onload=function(){
             window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)
-          },
+          };
           (document.head || document.body).appendChild(i)
         }
       }();
     `;
-    document.head.appendChild(script);
+    
+    // Only add script if it doesn't already exist
+    if (!document.querySelector('script[data-us-init]')) {
+      script.setAttribute('data-us-init', 'true');
+      document.head.appendChild(script);
+    }
 
     return () => {
-      document.head.removeChild(script);
+      // Clean up on unmount
+      const existingScript = document.querySelector('script[data-us-init]');
+      if (existingScript && existingScript.parentNode) {
+        existingScript.parentNode.removeChild(existingScript);
+      }
     };
   }, []);
 
@@ -149,13 +168,111 @@ export default function Home() {
             className="flex justify-center mb-8"
           >
             <div 
-              data-us-project="FJCMeOcu2KP1kPy5ZniwU" 
+              className="relative overflow-hidden rounded-xl glass-effect neon-border animate-pulse-neon"
               style={{ 
                 width: 'min(1440px, 100vw)', 
-                height: '900px', 
+                height: '800px', 
                 maxWidth: '100%' 
               }}
-            />
+            >
+              {/* Enhanced 3D-like placeholder while loading */}
+              <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    {/* 3D Geometric Animation */}
+                    <motion.div
+                      className="relative w-32 h-32 mx-auto mb-6"
+                      animate={{ rotateY: 360, rotateX: 180 }}
+                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    >
+                      <motion.div 
+                        className="absolute inset-0 border-4 border-neon-blue rounded-lg"
+                        animate={{ rotateZ: 45 }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                      <motion.div 
+                        className="absolute inset-4 border-2 border-neon-purple rounded-lg"
+                        animate={{ rotateZ: -45 }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                      <motion.div 
+                        className="absolute inset-8 border border-neon-green rounded-lg"
+                        animate={{ rotateZ: 90 }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                    </motion.div>
+                    
+                    <motion.h3 
+                      animate={{ 
+                        scale: [1, 1.05, 1],
+                        textShadow: [
+                          "0 0 10px #00D4FF",
+                          "0 0 20px #00D4FF, 0 0 30px #B838FF",
+                          "0 0 10px #00D4FF"
+                        ]
+                      }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                      className="text-3xl font-bold text-neon-blue mb-2"
+                    >
+                      Interactive 3D Experience
+                    </motion.h3>
+                    <motion.p 
+                      animate={{ opacity: [0.6, 1, 0.6] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="text-neon-purple text-lg"
+                    >
+                      Initializing Creative Showcase...
+                    </motion.p>
+                  </div>
+                </div>
+                
+                {/* Animated particles background */}
+                <div className="absolute inset-0 overflow-hidden">
+                  {Array.from({ length: 20 }).map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-neon-blue rounded-full"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                      }}
+                      animate={{
+                        y: [0, -100, 0],
+                        opacity: [0, 1, 0],
+                        scale: [0, 1, 0]
+                      }}
+                      transition={{
+                        duration: 3 + Math.random() * 2,
+                        repeat: Infinity,
+                        delay: Math.random() * 2
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+              
+              {/* Unicorn Studio Container */}
+              <div 
+                data-us-project="FJCMe0cu2KP1kPy5ZniwU" 
+                style={{ 
+                  width: 'min(1440px, 100vw)', 
+                  height: '900px', 
+                  maxWidth: '100%',
+                  position: 'relative',
+                  top: '0px',
+                  zIndex: 10
+                }}
+              />
+              
+              {/* Gradient overlay to hide watermark */}
+              <div 
+                className="absolute bottom-0 left-0 right-0 z-20"
+                style={{ 
+                  height: '120px',
+                  background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%)'
+                }}
+              />
+            </div>
           </motion.div>
           
           {/* CTA Buttons */}
