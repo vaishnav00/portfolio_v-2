@@ -149,16 +149,18 @@ export default function Home() {
           {/* Consistent animated background */}
           <AnimatedBackground />
           
-          {/* Unicorn Studio Embed - with fallback */}
+          {/* Unicorn Studio Embed - scaled and cropped */}
           <div 
             data-us-project="o91Mszogrc6tA7SO1wXQ" 
             style={{ 
               width: '100vw', 
-              height: '100vh',
+              height: '120vh',
               position: 'absolute',
-              top: '0',
+              top: '-10vh',
               left: '0',
-              zIndex: 2
+              zIndex: 2,
+              transform: 'scale(1.1)',
+              transformOrigin: 'center top'
             }}
           />
           
