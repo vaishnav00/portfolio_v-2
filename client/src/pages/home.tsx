@@ -12,6 +12,7 @@ declare global {
 }
 import { ParticleBackground } from '@/components/ui/particle-background';
 import { HiddenSnakeTrigger } from '@/components/ui/hidden-snake-trigger';
+import AnimatedBackground from '@/components/ui/animated-background';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -295,8 +296,9 @@ export default function Home() {
       </section>
 
       {/* Developer Introduction Section */}
-      <section id="developer" className="py-32 relative z-10 bg-gradient-to-b from-black to-gray-900">
-        <div className="container mx-auto px-6">
+      <section id="developer" className="py-32 relative overflow-hidden bg-gradient-to-b from-black to-gray-900">
+        <AnimatedBackground intensity="medium" />
+        <div className="container mx-auto px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -342,8 +344,9 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 relative z-10">
-        <div className="container mx-auto px-6">
+      <section id="about" className="py-20 relative overflow-hidden">
+        <AnimatedBackground intensity="low" />
+        <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
@@ -398,8 +401,9 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 relative z-10">
-        <div className="container mx-auto px-6">
+      <section id="projects" className="py-20 relative overflow-hidden">
+        <AnimatedBackground intensity="medium" />
+        <div className="container mx-auto px-6 relative z-10">
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -477,8 +481,9 @@ export default function Home() {
 
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 relative z-10">
-        <div className="container mx-auto px-6">
+      <section id="skills" className="py-20 relative overflow-hidden">
+        <AnimatedBackground intensity="low" />
+        <div className="container mx-auto px-6 relative z-10">
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -541,8 +546,9 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 relative z-10">
-        <div className="container mx-auto px-6">
+      <section id="contact" className="py-20 relative overflow-hidden">
+        <AnimatedBackground intensity="medium" />
+        <div className="container mx-auto px-6 relative z-10">
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
