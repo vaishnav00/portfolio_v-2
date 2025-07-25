@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trophy, Play, RotateCcw } from 'lucide-react';
+import { Trophy, Play, RotateCcw, RefreshCw } from 'lucide-react';
 
 interface DinoScore {
   id: string;
@@ -215,10 +215,17 @@ export function DinoGame() {
     };
   }, [gameState, gameLoop]);
 
-  // Load leaderboard on mount
+  // Load leaderboard on mount and when game state changes
   useEffect(() => {
     fetchLeaderboard();
   }, [fetchLeaderboard]);
+
+  // Refresh leaderboard when viewing it
+  useEffect(() => {
+    if (gameState === 'leaderboard') {
+      fetchLeaderboard();
+    }
+  }, [gameState, fetchLeaderboard]);
 
   return (
     <Card className="w-full max-w-2xl mx-auto bg-black border-white text-white">
@@ -340,7 +347,10 @@ export function DinoGame() {
               exit={{ opacity: 0, y: -20 }}
               className="space-y-6"
             >
-              <h3 className="text-xl font-bold text-center text-white">Leaderboard</h3>
+              <div className="text-center">
+                <h3 className="text-xl font-bold text-white">🏆 Global Leaderboard 🏆</h3>
+                <p className="text-sm text-gray-400 mt-1">All players worldwide</p>
+              </div>
               
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {leaderboard.length > 0 ? (
@@ -362,6 +372,14 @@ export function DinoGame() {
               </div>
 
               <div className="flex gap-2 justify-center">
+                <Button 
+                  onClick={fetchLeaderboard}
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-black"
+                >
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                  Refresh
+                </Button>
                 <Button 
                   onClick={startGame}
                   className="bg-white text-black hover:bg-gray-200"
