@@ -185,18 +185,26 @@ export default function Home() {
           </div>
           
           {/* Unicorn Studio Embed */}
-          <div 
-            data-us-project="FJCMeOcu2KP1kPy5ZnwU" 
-            style={{ 
-              width: '1440px', 
-              height: '900px',
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              zIndex: 2
-            }}
-          />
+          <div>
+            <div 
+              data-us-project="FJCMeOcu2KP1kPy5ZnwU" 
+              style={{ 
+                width: '1440px', 
+                height: '900px',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                zIndex: 2
+              }}
+            />
+            <script 
+              type="text/javascript"
+              dangerouslySetInnerHTML={{
+                __html: `!function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head || document.body).appendChild(i)}}();`
+              }}
+            />
+          </div>
           
           {/* Gradient overlays to blend with dark theme */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" style={{ zIndex: 3 }} />
