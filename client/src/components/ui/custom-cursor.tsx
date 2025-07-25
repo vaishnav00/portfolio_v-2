@@ -2,32 +2,23 @@ import { useEffect, useRef } from 'react';
 
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
-  const cursorDotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check if we're in a browser environment
     if (typeof window === 'undefined') return;
     
     const cursor = cursorRef.current;
-    const cursorDot = cursorDotRef.current;
     
-    if (!cursor || !cursorDot) return;
+    if (!cursor) return;
 
     let mouseX = 0;
     let mouseY = 0;
     let cursorX = 0;
     let cursorY = 0;
-    let dotX = 0;
-    let dotY = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      
-      // Immediate dot position
-      dotX = mouseX - 2;
-      dotY = mouseY - 2;
-      cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
     };
 
     const handleMouseDown = () => {
@@ -82,9 +73,6 @@ export function CustomCursor() {
   }, []);
 
   return (
-    <>
-      <div ref={cursorRef} className="custom-cursor" />
-      <div ref={cursorDotRef} className="custom-cursor-dot" />
-    </>
+    <div ref={cursorRef} className="custom-cursor" />
   );
 }

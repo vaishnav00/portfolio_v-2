@@ -140,19 +140,6 @@
     transition: transform 0.1s ease;
   }
 
-  .custom-cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 4px;
-    background: white;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    transition: transform 0.05s ease;
-  }
-
   .custom-cursor.hover {
     transform: scale(1.5);
     background: rgba(255, 255, 255, 0.6);
