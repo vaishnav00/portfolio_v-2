@@ -8,6 +8,21 @@ This is a modern, single-page personal portfolio website built with React and Ty
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+### Mystery Snake Game Feature (July 25, 2025)
+- Added hidden Snake game as floating element in bottom-right corner
+- Snake game opens in modal overlay when clicked 
+- Removed Snake from main games section to maintain mystery
+- Added subtle hints throughout the page about hidden treasures
+- Enhanced with celebration animation when discovered
+
+### Unicorn Studio Integration
+- Embedded 3D animation from Unicorn Studio (Project ID: FJCMe0cu2KP1kPy5ZniwU)
+- Cropped embed to hide copyright watermark with gradient overlay
+- Added fallback loading animation with geometric shapes and particles
+- Integrated with portfolio's neon theme and glass effects
+
 ## System Architecture
 
 ### Frontend Architecture

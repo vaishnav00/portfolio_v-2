@@ -11,8 +11,8 @@ declare global {
   }
 }
 import { ParticleBackground } from '@/components/ui/particle-background';
+import { HiddenSnakeTrigger } from '@/components/ui/hidden-snake-trigger';
 import { TicTacToe } from '@/components/games/tic-tac-toe';
-import { SnakeGame } from '@/components/games/snake-game';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -104,6 +104,9 @@ export default function Home() {
       {/* Particle Background */}
       <ParticleBackground />
 
+      {/* Hidden Snake Game Trigger */}
+      <HiddenSnakeTrigger />
+
       {/* Navigation */}
       <motion.nav 
         initial={{ y: -100 }}
@@ -119,7 +122,7 @@ export default function Home() {
               Portfolio
             </motion.div>
             <div className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Projects', 'Games', 'Skills', 'Contact'].map((item, index) => (
+              {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item, index) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -288,6 +291,16 @@ export default function Home() {
             <Button className="magnetic-hover glass-effect px-8 py-4 rounded-full border border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-black transition-all duration-300">
               Download Resume
             </Button>
+            
+            {/* Subtle hint for the hidden game */}
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1.5 }}
+              className="text-sm text-gray-500 mt-4 italic"
+            >
+              💡 <span className="text-neon-green">Pro tip:</span> Look for hidden treasures around the corner...
+            </motion.p>
           </motion.div>
         </div>
 
@@ -440,7 +453,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Games Section */}
+      {/* Interactive Showcase Section */}
       <section id="games" className="py-20 relative z-10">
         <div className="container mx-auto px-6">
           <motion.h2 
@@ -450,27 +463,34 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-5xl font-bold text-center mb-16 text-neon-blue animate-glow"
           >
-            Interactive Games
+            Interactive Experience
           </motion.h2>
           
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="flex justify-center">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
+              className="max-w-2xl"
             >
               <TicTacToe />
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <SnakeGame />
-            </motion.div>
           </div>
+          
+          {/* Mystery hint */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <p className="text-gray-400 text-lg">
+              🎯 <span className="text-neon-green">Psst...</span> There might be a hidden surprise somewhere on this page. 
+              <span className="text-neon-purple animate-pulse"> Keep exploring! 🐍</span>
+            </p>
+          </motion.div>
         </div>
       </section>
 
