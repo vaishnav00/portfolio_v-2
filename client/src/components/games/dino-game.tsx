@@ -231,7 +231,7 @@ export function DinoGame() {
     <Card className="w-full max-w-2xl mx-auto bg-black border-white text-white">
       <CardHeader>
         <CardTitle className="text-center text-2xl font-bold text-white">
-          Google Dino Game
+          DIOOOOO
         </CardTitle>
       </CardHeader>
       <CardContent>
