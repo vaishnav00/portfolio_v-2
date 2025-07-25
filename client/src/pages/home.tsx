@@ -187,7 +187,7 @@ export default function Home() {
           {/* Unicorn Studio Embed */}
           <div>
             <div 
-              data-us-project="FJCMeOcu2KP1kPy5ZnwU" 
+              data-us-project="fcvCpXXYd1Gs62j0K6IQ" 
               style={{ 
                 width: '1440px', 
                 height: '900px',
