@@ -10,7 +10,7 @@ declare global {
     };
   }
 }
-import { ParticleBackground } from '@/components/ui/particle-background';
+
 import { HiddenSnakeTrigger } from '@/components/ui/hidden-snake-trigger';
 import AnimatedBackground from '@/components/ui/animated-background';
 import { Button } from '@/components/ui/button';
@@ -101,8 +101,7 @@ export default function Home() {
         style={{ scaleX }}
       />
 
-      {/* Particle Background */}
-      <ParticleBackground />
+
 
       {/* Hidden Snake Game Trigger */}
       <HiddenSnakeTrigger />
