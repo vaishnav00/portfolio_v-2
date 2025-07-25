@@ -125,7 +125,7 @@ export default function Home() {
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="hover:text-white transition-colors duration-300 text-gray-300 font-medium clickable"
+                  className="hover:text-white transition-colors duration-300 text-gray-300 font-medium"
                   whileHover={{ scale: 1.1 }}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -226,7 +226,7 @@ export default function Home() {
               >
                 <Button 
                   onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-white text-black hover:bg-gray-200 px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
+                  className="bg-white text-black hover:bg-gray-200 px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   View My Work
                 </Button>
@@ -239,7 +239,7 @@ export default function Home() {
               >
                 <Button 
                   variant="outline"
-                  className="border-2 border-white text-white hover:bg-white hover:text-black px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
+                  className="border-2 border-white text-white hover:bg-white hover:text-black px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   Download Resume
                 </Button>
@@ -277,7 +277,7 @@ export default function Home() {
                   <motion.a
                     key={index}
                     href="#"
-                    className={`${color} hover:text-gray-300 transition-colors text-3xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10 clickable`}
+                    className={`${color} hover:text-gray-300 transition-colors text-3xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10`}
                     whileHover={{ scale: 1.15, y: -3, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -366,7 +366,7 @@ export default function Home() {
                   <div className="flex space-x-4">
                     <motion.a
                       href="#"
-                      className="text-white hover:text-gray-300 transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white clickable"
+                      className="text-white hover:text-gray-300 transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white"
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -375,7 +375,7 @@ export default function Home() {
                     </motion.a>
                     <motion.a
                       href="#"
-                      className="text-gray-300 hover:text-white transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white clickable"
+                      className="text-gray-300 hover:text-white transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white"
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -532,7 +532,7 @@ export default function Home() {
                 >
                   <Button
                     type="submit"
-                    className="w-full bg-white text-black hover:bg-gray-200 px-8 py-4 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
+                    className="w-full bg-white text-black hover:bg-gray-200 px-8 py-4 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     <Mail className="mr-2" size={20} />
                     Send Message
@@ -565,7 +565,7 @@ export default function Home() {
               <motion.a
                 key={index}
                 href="#"
-                className={`${color} hover:text-gray-300 transition-colors text-2xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10 clickable`}
+                className={`${color} hover:text-gray-300 transition-colors text-2xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10`}
                 whileHover={{ scale: 1.15, y: -3, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
