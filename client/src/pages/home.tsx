@@ -121,7 +121,7 @@ export default function Home() {
               Portfolio
             </motion.div>
             <div className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Projects', 'Mystery', 'Skills', 'Contact'].map((item, index) => (
+              {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item, index) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -442,32 +442,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mystery Section */}
-      <section id="mystery" className="py-20 relative z-10">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <motion.h2 
-              className="text-5xl font-bold text-neon-green animate-glow"
-              animate={{ 
-                textShadow: [
-                  "0 0 20px #00FF88",
-                  "0 0 30px #00FF88, 0 0 40px #00D4FF",
-                  "0 0 20px #00FF88"
-                ]
-              }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              Hidden Treasures
-            </motion.h2>
-          </motion.div>
-        </div>
-      </section>
+
 
       {/* Skills Section */}
       <section id="skills" className="py-20 relative z-10">
