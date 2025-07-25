@@ -147,108 +147,8 @@ export default function Home() {
           className="absolute inset-0 w-full h-full"
           style={{ zIndex: 1 }}
         >
-          {/* Enhanced fallback animated background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900">
-            {/* Animated gradient background */}
-            <motion.div
-              className="absolute inset-0"
-              animate={{
-                background: [
-                  'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.15) 0%, transparent 60%)',
-                  'radial-gradient(circle at 80% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 60%)',
-                  'radial-gradient(circle at 50% 20%, rgba(139, 69, 255, 0.15) 0%, transparent 60%)',
-                  'radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.15) 0%, transparent 60%)',
-                  'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.15) 0%, transparent 60%)'
-                ]
-              }}
-              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-            />
-            
-            {/* Matrix-style digital rain effect */}
-            {Array.from({ length: 50 }).map((_, i) => (
-              <motion.div
-                key={`rain-${i}`}
-                className="absolute w-px h-20 bg-gradient-to-b from-neon-green to-transparent opacity-60"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: '-80px',
-                }}
-                animate={{
-                  y: ['0vh', '120vh'],
-                  opacity: [0, 0.8, 0]
-                }}
-                transition={{
-                  duration: 3 + Math.random() * 4,
-                  repeat: Infinity,
-                  delay: Math.random() * 5,
-                  ease: "linear"
-                }}
-              />
-            ))}
-            
-            {/* Floating energy orbs */}
-            {Array.from({ length: 8 }).map((_, i) => (
-              <motion.div
-                key={`orb-${i}`}
-                className="absolute w-3 h-3 rounded-full bg-neon-blue"
-                style={{
-                  left: `${20 + Math.random() * 60}%`,
-                  top: `${20 + Math.random() * 60}%`,
-                  filter: 'blur(1px)',
-                  boxShadow: '0 0 20px currentColor'
-                }}
-                animate={{
-                  x: [0, 100, -100, 0],
-                  y: [0, -50, 50, 0],
-                  opacity: [0.3, 1, 0.3],
-                  scale: [0.8, 1.2, 0.8]
-                }}
-                transition={{
-                  duration: 8 + Math.random() * 4,
-                  repeat: Infinity,
-                  delay: Math.random() * 3,
-                  ease: "easeInOut"
-                }}
-              />
-            ))}
-            
-            {/* Geometric wireframes */}
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-            >
-              <div className="relative">
-                {/* Outer hexagon */}
-                <motion.div
-                  className="w-96 h-96 border border-neon-purple opacity-20"
-                  style={{
-                    clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
-                  }}
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                />
-                {/* Inner hexagon */}
-                <motion.div
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-neon-blue opacity-30"
-                  style={{
-                    clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
-                  }}
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                />
-                {/* Center dot */}
-                <motion.div
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-neon-green rounded-full"
-                  animate={{
-                    scale: [1, 2, 1],
-                    opacity: [0.5, 1, 0.5]
-                  }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                />
-              </div>
-            </motion.div>
-          </div>
+          {/* Consistent animated background */}
+          <AnimatedBackground />
           
           {/* Unicorn Studio Embed */}
           <div>
@@ -296,8 +196,8 @@ export default function Home() {
       </section>
 
       {/* Developer Introduction Section */}
-      <section id="developer" className="py-32 relative overflow-hidden bg-gradient-to-b from-black to-gray-900">
-        <AnimatedBackground intensity="medium" />
+      <section id="developer" className="py-32 relative overflow-hidden">
+        <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -345,7 +245,7 @@ export default function Home() {
 
       {/* About Section */}
       <section id="about" className="py-20 relative overflow-hidden">
-        <AnimatedBackground intensity="low" />
+        <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div 
@@ -402,7 +302,7 @@ export default function Home() {
 
       {/* Projects Section */}
       <section id="projects" className="py-20 relative overflow-hidden">
-        <AnimatedBackground intensity="medium" />
+        <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
@@ -482,7 +382,7 @@ export default function Home() {
 
       {/* Skills Section */}
       <section id="skills" className="py-20 relative overflow-hidden">
-        <AnimatedBackground intensity="low" />
+        <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
@@ -547,7 +447,7 @@ export default function Home() {
 
       {/* Contact Section */}
       <section id="contact" className="py-20 relative overflow-hidden">
-        <AnimatedBackground intensity="medium" />
+        <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}

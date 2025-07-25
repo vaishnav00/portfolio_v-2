@@ -6,53 +6,57 @@ interface AnimatedBackgroundProps {
 }
 
 export default function AnimatedBackground({ intensity = 'medium', className = '' }: AnimatedBackgroundProps) {
-  const particleCount = intensity === 'low' ? 20 : intensity === 'medium' ? 35 : 50;
-  const orbCount = intensity === 'low' ? 3 : intensity === 'medium' ? 5 : 8;
+  // Keep consistent particle count for seamless experience
+  const particleCount = 40;
+  const orbCount = 6;
   
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className}`}>
-      {/* Animated gradient background */}
+    <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
+      {/* Base gradient background for consistency */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900" />
+      
+      {/* Animated gradient background - same for all sections */}
       <motion.div
         className="absolute inset-0"
         animate={{
           background: [
-            'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 60%)',
-            'radial-gradient(circle at 80% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 60%)',
-            'radial-gradient(circle at 50% 20%, rgba(139, 69, 255, 0.1) 0%, transparent 60%)',
-            'radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 60%)',
-            'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 60%)'
+            'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.12) 0%, transparent 60%)',
+            'radial-gradient(circle at 80% 50%, rgba(0, 212, 255, 0.12) 0%, transparent 60%)',
+            'radial-gradient(circle at 50% 20%, rgba(139, 69, 255, 0.12) 0%, transparent 60%)',
+            'radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.12) 0%, transparent 60%)',
+            'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.12) 0%, transparent 60%)'
           ]
         }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
       
-      {/* Matrix-style digital rain effect */}
+      {/* Matrix-style digital rain effect - consistent across all sections */}
       {Array.from({ length: particleCount }).map((_, i) => (
         <motion.div
           key={`rain-${i}`}
-          className="absolute w-px h-16 bg-gradient-to-b from-neon-green to-transparent opacity-40"
+          className="absolute w-px h-20 bg-gradient-to-b from-neon-green to-transparent opacity-50"
           style={{
             left: `${Math.random() * 100}%`,
-            top: '-64px',
+            top: '-80px',
           }}
           animate={{
             y: ['0vh', '120vh'],
-            opacity: [0, 0.6, 0]
+            opacity: [0, 0.7, 0]
           }}
           transition={{
-            duration: 4 + Math.random() * 6,
+            duration: 3 + Math.random() * 4,
             repeat: Infinity,
-            delay: Math.random() * 8,
+            delay: Math.random() * 5,
             ease: "linear"
           }}
         />
       ))}
       
-      {/* Floating energy orbs */}
+      {/* Floating energy orbs - consistent across all sections */}
       {Array.from({ length: orbCount }).map((_, i) => (
         <motion.div
           key={`orb-${i}`}
-          className="absolute w-2 h-2 rounded-full bg-neon-blue opacity-60"
+          className="absolute w-2 h-2 rounded-full bg-neon-blue opacity-70"
           style={{
             left: `${20 + Math.random() * 60}%`,
             top: `${20 + Math.random() * 60}%`,
@@ -60,49 +64,56 @@ export default function AnimatedBackground({ intensity = 'medium', className = '
             boxShadow: '0 0 15px currentColor'
           }}
           animate={{
-            x: [0, 80, -80, 0],
-            y: [0, -40, 40, 0],
-            opacity: [0.2, 0.8, 0.2],
-            scale: [0.6, 1, 0.6]
+            x: [0, 100, -100, 0],
+            y: [0, -50, 50, 0],
+            opacity: [0.3, 0.9, 0.3],
+            scale: [0.7, 1.2, 0.7]
           }}
           transition={{
-            duration: 10 + Math.random() * 6,
+            duration: 8 + Math.random() * 4,
             repeat: Infinity,
-            delay: Math.random() * 4,
+            delay: Math.random() * 3,
             ease: "easeInOut"
           }}
         />
       ))}
       
-      {/* Geometric wireframes - only for high intensity */}
-      {intensity === 'high' && (
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center opacity-30"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-        >
-          <div className="relative">
-            {/* Outer hexagon */}
-            <motion.div
-              className="w-80 h-80 border border-neon-purple opacity-15"
-              style={{
-                clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
-              }}
-              animate={{ rotate: -360 }}
-              transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-            />
-            {/* Inner hexagon */}
-            <motion.div
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-neon-blue opacity-20"
-              style={{
-                clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
-              }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-            />
-          </div>
-        </motion.div>
-      )}
+      {/* Geometric wireframes - always present for consistency */}
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center opacity-20"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+      >
+        <div className="relative">
+          {/* Outer hexagon */}
+          <motion.div
+            className="w-96 h-96 border border-neon-purple opacity-15"
+            style={{
+              clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
+            }}
+            animate={{ rotate: -360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          />
+          {/* Inner hexagon */}
+          <motion.div
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-neon-blue opacity-25"
+            style={{
+              clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          />
+          {/* Center dot */}
+          <motion.div
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-neon-green rounded-full"
+            animate={{
+              scale: [1, 2, 1],
+              opacity: [0.5, 1, 0.5]
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
+        </div>
+      </motion.div>
     </div>
   );
 }
