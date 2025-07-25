@@ -141,7 +141,7 @@ export default function Home() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
         {/* Full-screen Unicorn Studio Background */}
         <div 
           className="absolute inset-0 w-full h-full"
@@ -196,7 +196,7 @@ export default function Home() {
       </section>
 
       {/* Developer Introduction Section */}
-      <section id="developer" className="py-32 relative overflow-hidden">
+      <section id="developer" className="py-20 relative overflow-hidden bg-black">
         <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <motion.div
@@ -244,7 +244,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 relative overflow-hidden">
+      <section id="about" className="py-16 relative overflow-hidden bg-black">
         <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -301,7 +301,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 relative overflow-hidden">
+      <section id="projects" className="py-16 relative overflow-hidden bg-black">
         <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <motion.h2 
@@ -381,7 +381,7 @@ export default function Home() {
 
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 relative overflow-hidden">
+      <section id="skills" className="py-16 relative overflow-hidden bg-black">
         <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <motion.h2 
@@ -446,7 +446,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 relative overflow-hidden">
+      <section id="contact" className="py-16 relative overflow-hidden bg-black">
         <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <motion.h2 

@@ -12,105 +12,105 @@ export default function AnimatedBackground({ intensity = 'medium', className = '
   
   return (
     <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
-      {/* Base gradient background for consistency */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900" />
+      {/* Pure black base background for seamless sections */}
+      <div className="absolute inset-0 bg-black" />
       
-      {/* Animated gradient background - same for all sections */}
+      {/* Seamless animated gradient background */}
       <motion.div
         className="absolute inset-0"
         animate={{
           background: [
-            'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.12) 0%, transparent 60%)',
-            'radial-gradient(circle at 80% 50%, rgba(0, 212, 255, 0.12) 0%, transparent 60%)',
-            'radial-gradient(circle at 50% 20%, rgba(139, 69, 255, 0.12) 0%, transparent 60%)',
-            'radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.12) 0%, transparent 60%)',
-            'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.12) 0%, transparent 60%)'
+            'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.08) 0%, transparent 70%)',
+            'radial-gradient(circle at 80% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 70%)',
+            'radial-gradient(circle at 50% 20%, rgba(139, 69, 255, 0.08) 0%, transparent 70%)',
+            'radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.08) 0%, transparent 70%)',
+            'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.08) 0%, transparent 70%)'
           ]
         }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
       
-      {/* Matrix-style digital rain effect - consistent across all sections */}
+      {/* Subtle matrix-style digital rain effect */}
       {Array.from({ length: particleCount }).map((_, i) => (
         <motion.div
           key={`rain-${i}`}
-          className="absolute w-px h-20 bg-gradient-to-b from-neon-green to-transparent opacity-50"
+          className="absolute w-px h-16 bg-gradient-to-b from-neon-green to-transparent opacity-30"
           style={{
             left: `${Math.random() * 100}%`,
-            top: '-80px',
+            top: '-64px',
           }}
           animate={{
             y: ['0vh', '120vh'],
-            opacity: [0, 0.7, 0]
+            opacity: [0, 0.5, 0]
           }}
           transition={{
-            duration: 3 + Math.random() * 4,
+            duration: 4 + Math.random() * 6,
             repeat: Infinity,
-            delay: Math.random() * 5,
+            delay: Math.random() * 8,
             ease: "linear"
           }}
         />
       ))}
       
-      {/* Floating energy orbs - consistent across all sections */}
+      {/* Subtle floating energy orbs */}
       {Array.from({ length: orbCount }).map((_, i) => (
         <motion.div
           key={`orb-${i}`}
-          className="absolute w-2 h-2 rounded-full bg-neon-blue opacity-70"
+          className="absolute w-1 h-1 rounded-full bg-neon-blue opacity-40"
           style={{
             left: `${20 + Math.random() * 60}%`,
             top: `${20 + Math.random() * 60}%`,
-            filter: 'blur(0.5px)',
-            boxShadow: '0 0 15px currentColor'
+            filter: 'blur(0.3px)',
+            boxShadow: '0 0 10px currentColor'
           }}
           animate={{
-            x: [0, 100, -100, 0],
-            y: [0, -50, 50, 0],
-            opacity: [0.3, 0.9, 0.3],
-            scale: [0.7, 1.2, 0.7]
+            x: [0, 60, -60, 0],
+            y: [0, -30, 30, 0],
+            opacity: [0.2, 0.6, 0.2],
+            scale: [0.5, 1, 0.5]
           }}
           transition={{
-            duration: 8 + Math.random() * 4,
+            duration: 12 + Math.random() * 6,
             repeat: Infinity,
-            delay: Math.random() * 3,
+            delay: Math.random() * 4,
             ease: "easeInOut"
           }}
         />
       ))}
       
-      {/* Geometric wireframes - always present for consistency */}
+      {/* Subtle geometric wireframes */}
       <motion.div
-        className="absolute inset-0 flex items-center justify-center opacity-20"
+        className="absolute inset-0 flex items-center justify-center opacity-8"
         animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
       >
         <div className="relative">
           {/* Outer hexagon */}
           <motion.div
-            className="w-96 h-96 border border-neon-purple opacity-15"
+            className="w-80 h-80 border border-neon-purple opacity-8"
             style={{
               clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
             }}
             animate={{ rotate: -360 }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
           />
           {/* Inner hexagon */}
           <motion.div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-neon-blue opacity-25"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-neon-blue opacity-12"
             style={{
               clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
             }}
             animate={{ rotate: 360 }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
           />
           {/* Center dot */}
           <motion.div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-neon-green rounded-full"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-neon-green rounded-full opacity-30"
             animate={{
-              scale: [1, 2, 1],
-              opacity: [0.5, 1, 0.5]
+              scale: [0.8, 1.5, 0.8],
+              opacity: [0.2, 0.4, 0.2]
             }}
-            transition={{ duration: 3, repeat: Infinity }}
+            transition={{ duration: 6, repeat: Infinity }}
           />
         </div>
       </motion.div>
