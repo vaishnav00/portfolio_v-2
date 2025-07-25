@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import profileImage from '@assets/7C70F1F1-606B-4AC4-8A52-DA8BCA33930A_1753459890067.jpeg';
 
 // Type declarations for UnicornStudio
 declare global {
@@ -11,44 +12,44 @@ declare global {
   }
 }
 
-import { HiddenGameTrigger } from '@/components/ui/hidden-snake-trigger';
-import AnimatedBackground from '@/components/ui/animated-background';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent } from '@/components/ui/card';
-import { 
-  Github, 
-  Linkedin, 
-  Twitter, 
-  ExternalLink, 
-  Mail, 
-  Phone, 
+import { HiddenGameTrigger } from "@/components/ui/hidden-snake-trigger";
+import AnimatedBackground from "@/components/ui/animated-background";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Github,
+  Linkedin,
+  Twitter,
+  ExternalLink,
+  Mail,
+  Phone,
   MapPin,
   Code,
   Server,
   Cloud,
-  Smartphone
-} from 'lucide-react';
+  Smartphone,
+} from "lucide-react";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
 
   useEffect(() => {
     // Load the exact Unicorn Studio script you provided
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
+    const script = document.createElement("script");
+    script.type = "text/javascript";
     script.innerHTML = `
       !function(){
         if(!window.UnicornStudio){
@@ -62,16 +63,16 @@ export default function Home() {
         }
       }();
     `;
-    
+
     // Only add script if it doesn't already exist
-    if (!document.querySelector('script[data-us-init]')) {
-      script.setAttribute('data-us-init', 'true');
+    if (!document.querySelector("script[data-us-init]")) {
+      script.setAttribute("data-us-init", "true");
       document.head.appendChild(script);
     }
 
     return () => {
       // Clean up on unmount
-      const existingScript = document.querySelector('script[data-us-init]');
+      const existingScript = document.querySelector("script[data-us-init]");
       if (existingScript && existingScript.parentNode) {
         existingScript.parentNode.removeChild(existingScript);
       }
@@ -81,15 +82,17 @@ export default function Home() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! I\'ll get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    console.log("Form submitted:", formData);
+    alert("Thank you for your message! I'll get back to you soon.");
+    setFormData({ name: "", email: "", message: "" });
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -101,27 +104,32 @@ export default function Home() {
         style={{ scaleX }}
       />
 
-
-
       {/* Hidden Dino Game Trigger */}
       <HiddenGameTrigger />
 
       {/* Navigation */}
-      <motion.nav 
+      <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className="fixed top-0 w-full z-40 glass-effect"
       >
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <motion.div 
+            <motion.div
               className="text-2xl font-bold text-white"
               whileHover={{ scale: 1.05 }}
             >
               Portfolio
             </motion.div>
             <div className="hidden md:flex space-x-8">
-              {['Home', 'Developer', 'About', 'Projects', 'Skills', 'Contact'].map((item, index) => (
+              {[
+                "Home",
+                "Developer",
+                "About",
+                "Projects",
+                "Skills",
+                "Contact",
+              ].map((item, index) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -140,45 +148,49 @@ export default function Home() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      <section
+        id="home"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
+      >
         {/* Full-screen Unicorn Studio Background */}
-        <div 
-          className="absolute inset-0 w-full h-full"
-          style={{ zIndex: 1 }}
-        >
+        <div className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
           {/* Consistent animated background */}
           <AnimatedBackground />
-          
+
           {/* Unicorn Studio Embed - scaled and cropped */}
-          <div 
-            data-us-project="o91Mszogrc6tA7SO1wXQ" 
-            style={{ 
-              width: '100vw', 
-              height: '120vh',
-              position: 'absolute',
-              top: '-10vh',
-              left: '0',
+          <div
+            data-us-project="o91Mszogrc6tA7SO1wXQ"
+            style={{
+              width: "100vw",
+              height: "120vh",
+              position: "absolute",
+              top: "-10vh",
+              left: "0",
               zIndex: 2,
-              transform: 'scale(1.1)',
-              transformOrigin: 'center top'
+              transform: "scale(1.1)",
+              transformOrigin: "center top",
             }}
           />
-          
+
           {/* Gradient overlays to blend with dark theme */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" style={{ zIndex: 3 }} />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" style={{ zIndex: 3 }} />
+          <div
+            className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none"
+            style={{ zIndex: 3 }}
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none"
+            style={{ zIndex: 3 }}
+          />
         </div>
 
-
-
         {/* Scroll Indicator */}
-        <motion.div 
+        <motion.div
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
           <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-            <motion.div 
+            <motion.div
               className="w-1 h-3 bg-white rounded-full mt-2"
               animate={{ opacity: [1, 0, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
@@ -188,7 +200,10 @@ export default function Home() {
       </section>
 
       {/* Developer Introduction Section */}
-      <section id="developer" className="py-20 relative overflow-hidden bg-black">
+      <section
+        id="developer"
+        className="py-20 relative overflow-hidden bg-black"
+      >
         <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <motion.div
@@ -198,12 +213,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <motion.h1 
-              className="text-6xl md:text-8xl font-black mb-8 text-white"
-            >
+            <motion.h1 className="text-6xl md:text-8xl font-black mb-8 text-white">
               DEVELOPER
             </motion.h1>
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
@@ -212,9 +225,9 @@ export default function Home() {
             >
               & Creative Technologist
             </motion.h2>
-            
+
             {/* CTA Buttons */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
@@ -226,20 +239,24 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
-                <Button 
-                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                <Button
+                  onClick={() =>
+                    document
+                      .getElementById("projects")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
                   className="bg-white text-black hover:bg-gray-200 px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
                 >
                   View My Work
                 </Button>
               </motion.div>
-              
+
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
-                <Button 
+                <Button
                   variant="outline"
                   className="border-2 border-white text-white hover:bg-white hover:text-black px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
                 >
@@ -256,7 +273,7 @@ export default function Home() {
         <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -265,16 +282,22 @@ export default function Home() {
             >
               <h2 className="text-5xl font-black mb-6 text-white">About Me</h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                I'm a passionate full-stack developer and creative technologist with a love for pushing the boundaries of web experiences. I specialize in creating immersive digital solutions that blend cutting-edge technology with stunning visual design.
+                I'm a passionate full-stack developer and creative technologist
+                with a love for pushing the boundaries of web experiences. I
+                specialize in creating immersive digital solutions that blend
+                cutting-edge technology with stunning visual design.
               </p>
               <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                With expertise in React, Node.js, and modern web technologies, I bring ideas to life through clean code and innovative user experiences. When I'm not coding, you'll find me exploring new technologies and creating interactive experiments.
+                With expertise in React, Node.js, and modern web technologies, I
+                bring ideas to life through clean code and innovative user
+                experiences. When I'm not coding, you'll find me exploring new
+                technologies and creating interactive experiments.
               </p>
               <div className="flex space-x-6">
                 {[
-                  { icon: Github, color: 'text-white', label: 'GitHub' },
-                  { icon: Linkedin, color: 'text-white', label: 'LinkedIn' },
-                  { icon: Twitter, color: 'text-white', label: 'Twitter' }
+                  { icon: Github, color: "text-white", label: "GitHub" },
+                  { icon: Linkedin, color: "text-white", label: "LinkedIn" },
+                  { icon: Twitter, color: "text-white", label: "Twitter" },
                 ].map(({ icon: Icon, color, label }, index) => (
                   <motion.a
                     key={index}
@@ -290,7 +313,7 @@ export default function Home() {
                 ))}
               </div>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -298,7 +321,7 @@ export default function Home() {
               className="order-1 lg:order-2 flex justify-center"
             >
               <motion.img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=800"
+                src={profileImage}
                 alt="Professional developer portrait"
                 className="w-80 h-80 object-cover rounded-full glass-effect p-4 magnetic-hover"
                 whileHover={{ scale: 1.05, rotate: 2 }}
@@ -311,10 +334,13 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 relative overflow-hidden bg-black">
+      <section
+        id="projects"
+        className="py-16 relative overflow-hidden bg-black"
+      >
         <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -323,27 +349,33 @@ export default function Home() {
           >
             Featured Projects
           </motion.h2>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 title: "AI Dashboard",
-                description: "A comprehensive analytics dashboard built with React and D3.js, featuring real-time data visualization and machine learning insights.",
-                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400",
-                color: "text-neon-blue"
+                description:
+                  "A comprehensive analytics dashboard built with React and D3.js, featuring real-time data visualization and machine learning insights.",
+                image:
+                  "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400",
+                color: "text-neon-blue",
               },
               {
                 title: "E-Commerce Platform",
-                description: "Full-stack e-commerce solution with payment integration, inventory management, and advanced search capabilities.",
-                image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400",
-                color: "text-neon-green"
+                description:
+                  "Full-stack e-commerce solution with payment integration, inventory management, and advanced search capabilities.",
+                image:
+                  "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400",
+                color: "text-neon-green",
               },
               {
                 title: "VR Experience",
-                description: "Immersive virtual reality application built with Three.js and WebXR, offering interactive 3D environments.",
-                image: "https://images.unsplash.com/photo-1592478411213-6153e4ebc696?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400",
-                color: "text-neon-purple"
-              }
+                description:
+                  "Immersive virtual reality application built with Three.js and WebXR, offering interactive 3D environments.",
+                image:
+                  "https://images.unsplash.com/photo-1592478411213-6153e4ebc696?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400",
+                color: "text-neon-purple",
+              },
             ].map((project, index) => (
               <motion.div
                 key={index}
@@ -363,7 +395,9 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className={`text-2xl font-bold mb-3 ${project.color}`}>{project.title}</h3>
+                  <h3 className={`text-2xl font-bold mb-3 ${project.color}`}>
+                    {project.title}
+                  </h3>
                   <p className="text-gray-300 mb-4">{project.description}</p>
                   <div className="flex space-x-4">
                     <motion.a
@@ -371,7 +405,11 @@ export default function Home() {
                       className="text-white hover:text-gray-300 transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white clickable"
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 25,
+                      }}
                     >
                       <ExternalLink size={16} /> Live Demo
                     </motion.a>
@@ -380,7 +418,11 @@ export default function Home() {
                       className="text-gray-300 hover:text-white transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white clickable"
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 25,
+                      }}
                     >
                       <Github size={16} /> Code
                     </motion.a>
@@ -392,13 +434,11 @@ export default function Home() {
         </div>
       </section>
 
-
-
       {/* Skills Section */}
       <section id="skills" className="py-16 relative overflow-hidden bg-black">
         <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -407,33 +447,33 @@ export default function Home() {
           >
             Technical Skills
           </motion.h2>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: Code,
                 title: "Frontend",
                 description: "React, Next.js, Vue.js, TypeScript",
-                color: "text-neon-blue"
+                color: "text-neon-blue",
               },
               {
                 icon: Server,
                 title: "Backend",
                 description: "Node.js, Python, MongoDB, PostgreSQL",
-                color: "text-neon-purple"
+                color: "text-neon-purple",
               },
               {
                 icon: Cloud,
                 title: "Cloud & DevOps",
                 description: "AWS, Docker, Kubernetes, CI/CD",
-                color: "text-neon-green"
+                color: "text-neon-green",
               },
               {
                 icon: Smartphone,
                 title: "Mobile",
                 description: "React Native, Flutter, iOS, Android",
-                color: "text-neon-blue"
-              }
+                color: "text-neon-blue",
+              },
             ].map((skill, index) => (
               <motion.div
                 key={index}
@@ -463,7 +503,7 @@ export default function Home() {
       <section id="contact" className="py-16 relative overflow-hidden bg-black">
         <AnimatedBackground />
         <div className="container mx-auto px-6 relative z-10">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -472,7 +512,7 @@ export default function Home() {
           >
             Get In Touch
           </motion.h2>
-          
+
           <div className="max-w-2xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -483,7 +523,10 @@ export default function Home() {
             >
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Name
                   </label>
                   <Input
@@ -496,9 +539,12 @@ export default function Home() {
                     className="w-full bg-transparent border-gray-600 focus:border-neon-blue focus:ring-neon-blue/20"
                   />
                 </div>
-                
+
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Email
                   </label>
                   <Input
@@ -511,9 +557,12 @@ export default function Home() {
                     className="w-full bg-transparent border-gray-600 focus:border-neon-green focus:ring-neon-green/20"
                   />
                 </div>
-                
+
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Message
                   </label>
                   <Textarea
@@ -526,9 +575,9 @@ export default function Home() {
                     className="w-full bg-transparent border-gray-600 focus:border-neon-purple focus:ring-neon-purple/20 resize-none"
                   />
                 </div>
-                
-                <motion.div 
-                  whileHover={{ scale: 1.05, y: -2 }} 
+
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 >
@@ -549,20 +598,21 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 border-t border-gray-800 relative z-10">
         <div className="container mx-auto px-6 text-center">
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="text-gray-400 mb-4"
           >
-            &copy; 2024 Developer Portfolio. Built with passion and cutting-edge technology.
+            &copy; 2024 Developer Portfolio. Built with passion and cutting-edge
+            technology.
           </motion.p>
           <div className="flex justify-center space-x-6">
             {[
-              { icon: Github, color: 'text-white', label: 'GitHub' },
-              { icon: Linkedin, color: 'text-white', label: 'LinkedIn' },
-              { icon: Twitter, color: 'text-white', label: 'Twitter' }
+              { icon: Github, color: "text-white", label: "GitHub" },
+              { icon: Linkedin, color: "text-white", label: "LinkedIn" },
+              { icon: Twitter, color: "text-white", label: "Twitter" },
             ].map(({ icon: Icon, color, label }, index) => (
               <motion.a
                 key={index}
