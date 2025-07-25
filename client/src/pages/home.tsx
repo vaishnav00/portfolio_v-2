@@ -151,7 +151,7 @@ export default function Home() {
           
           {/* Unicorn Studio Embed - with fallback */}
           <div 
-            data-us-project="fcvCpXXYd1Gs62j0K6IQ" 
+            data-us-project="o91Mszogrc6tA7SO1wXQ" 
             style={{ 
               width: '100vw', 
               height: '100vh',
