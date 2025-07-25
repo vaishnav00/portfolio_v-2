@@ -121,7 +121,7 @@ export default function Home() {
               Portfolio
             </motion.div>
             <div className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item, index) => (
+              {['Home', 'Developer', 'About', 'Projects', 'Skills', 'Contact'].map((item, index) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -146,42 +146,107 @@ export default function Home() {
           className="absolute inset-0 w-full h-full"
           style={{ zIndex: 1 }}
         >
-          {/* Fallback animated background while Unicorn Studio loads */}
+          {/* Enhanced fallback animated background */}
           <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+            {/* Animated gradient background */}
             <motion.div
               className="absolute inset-0"
               animate={{
                 background: [
-                  'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%)',
-                  'radial-gradient(circle at 80% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%)',
-                  'radial-gradient(circle at 50% 20%, rgba(139, 69, 255, 0.1) 0%, transparent 50%)',
-                  'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%)'
+                  'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.15) 0%, transparent 60%)',
+                  'radial-gradient(circle at 80% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 60%)',
+                  'radial-gradient(circle at 50% 20%, rgba(139, 69, 255, 0.15) 0%, transparent 60%)',
+                  'radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.15) 0%, transparent 60%)',
+                  'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.15) 0%, transparent 60%)'
                 ]
               }}
-              transition={{ duration: 8, repeat: Infinity }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
             />
             
-            {/* Floating particles */}
-            {Array.from({ length: 30 }).map((_, i) => (
+            {/* Matrix-style digital rain effect */}
+            {Array.from({ length: 50 }).map((_, i) => (
               <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-neon-blue rounded-full"
+                key={`rain-${i}`}
+                className="absolute w-px h-20 bg-gradient-to-b from-neon-green to-transparent opacity-60"
                 style={{
                   left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
+                  top: '-80px',
                 }}
                 animate={{
-                  y: [0, -200, 0],
-                  opacity: [0, 1, 0],
-                  scale: [0, 1.5, 0]
+                  y: ['0vh', '120vh'],
+                  opacity: [0, 0.8, 0]
                 }}
                 transition={{
-                  duration: 4 + Math.random() * 3,
+                  duration: 3 + Math.random() * 4,
                   repeat: Infinity,
-                  delay: Math.random() * 3
+                  delay: Math.random() * 5,
+                  ease: "linear"
                 }}
               />
             ))}
+            
+            {/* Floating energy orbs */}
+            {Array.from({ length: 8 }).map((_, i) => (
+              <motion.div
+                key={`orb-${i}`}
+                className="absolute w-3 h-3 rounded-full bg-neon-blue"
+                style={{
+                  left: `${20 + Math.random() * 60}%`,
+                  top: `${20 + Math.random() * 60}%`,
+                  filter: 'blur(1px)',
+                  boxShadow: '0 0 20px currentColor'
+                }}
+                animate={{
+                  x: [0, 100, -100, 0],
+                  y: [0, -50, 50, 0],
+                  opacity: [0.3, 1, 0.3],
+                  scale: [0.8, 1.2, 0.8]
+                }}
+                transition={{
+                  duration: 8 + Math.random() * 4,
+                  repeat: Infinity,
+                  delay: Math.random() * 3,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+            
+            {/* Geometric wireframes */}
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            >
+              <div className="relative">
+                {/* Outer hexagon */}
+                <motion.div
+                  className="w-96 h-96 border border-neon-purple opacity-20"
+                  style={{
+                    clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
+                  }}
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                />
+                {/* Inner hexagon */}
+                <motion.div
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-neon-blue opacity-30"
+                  style={{
+                    clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
+                  }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                />
+                {/* Center dot */}
+                <motion.div
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-neon-green rounded-full"
+                  animate={{
+                    scale: [1, 2, 1],
+                    opacity: [0.5, 1, 0.5]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+              </div>
+            </motion.div>
           </div>
           
           {/* Unicorn Studio Embed */}
@@ -211,45 +276,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" style={{ zIndex: 3 }} />
         </div>
 
-        <div className="w-full max-w-7xl mx-auto px-4 relative" style={{ zIndex: 10 }}>
-          <div className="flex flex-col items-center text-center mb-8">
-            <motion.h1 
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
-              className="text-6xl md:text-8xl font-black mb-4 text-glitch animate-glow drop-shadow-2xl"
-              data-text="DEVELOPER"
-              style={{ textShadow: '0 0 30px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 255, 136, 0.4)' }}
-            >
-              DEVELOPER
-            </motion.h1>
-            <motion.h2 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="text-2xl md:text-4xl font-light text-neon-blue mb-8 animate-glow drop-shadow-xl"
-              style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.8)' }}
-            >
-              & Creative Technologist
-            </motion.h2>
-          </div>
 
-          
-          {/* CTA Buttons */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.9 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-          >
-            <Button className="magnetic-hover glass-effect px-10 py-5 rounded-full border-2 border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-black transition-all duration-300 text-lg font-semibold backdrop-blur-md shadow-2xl">
-              View My Work
-            </Button>
-            <Button className="magnetic-hover glass-effect px-10 py-5 rounded-full border-2 border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-black transition-all duration-300 text-lg font-semibold backdrop-blur-md shadow-2xl">
-              Download Resume
-            </Button>
-          </motion.div>
-        </div>
 
         {/* Scroll Indicator */}
         <motion.div 
@@ -265,6 +292,53 @@ export default function Home() {
             />
           </div>
         </motion.div>
+      </section>
+
+      {/* Developer Introduction Section */}
+      <section id="developer" className="py-32 relative z-10 bg-gradient-to-b from-black to-gray-900">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <motion.h1 
+              className="text-6xl md:text-8xl font-black mb-8 text-glitch animate-glow"
+              data-text="DEVELOPER"
+              style={{ textShadow: '0 0 30px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 255, 136, 0.4)' }}
+            >
+              DEVELOPER
+            </motion.h1>
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-2xl md:text-4xl font-light text-neon-blue mb-12 animate-glow"
+              style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.8)' }}
+            >
+              & Creative Technologist
+            </motion.h2>
+            
+            {/* CTA Buttons */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              viewport={{ once: true }}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            >
+              <Button className="magnetic-hover glass-effect px-10 py-5 rounded-full border-2 border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-black transition-all duration-300 text-lg font-semibold backdrop-blur-md shadow-2xl">
+                View My Work
+              </Button>
+              <Button className="magnetic-hover glass-effect px-10 py-5 rounded-full border-2 border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-black transition-all duration-300 text-lg font-semibold backdrop-blur-md shadow-2xl">
+                Download Resume
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
 
       {/* About Section */}
