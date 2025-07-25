@@ -146,19 +146,63 @@ export default function Home() {
           className="absolute inset-0 w-full h-full"
           style={{ zIndex: 1 }}
         >
+          {/* Fallback animated background while Unicorn Studio loads */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+            <motion.div
+              className="absolute inset-0"
+              animate={{
+                background: [
+                  'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%)',
+                  'radial-gradient(circle at 80% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%)',
+                  'radial-gradient(circle at 50% 20%, rgba(139, 69, 255, 0.1) 0%, transparent 50%)',
+                  'radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%)'
+                ]
+              }}
+              transition={{ duration: 8, repeat: Infinity }}
+            />
+            
+            {/* Floating particles */}
+            {Array.from({ length: 30 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-neon-blue rounded-full"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  y: [0, -200, 0],
+                  opacity: [0, 1, 0],
+                  scale: [0, 1.5, 0]
+                }}
+                transition={{
+                  duration: 4 + Math.random() * 3,
+                  repeat: Infinity,
+                  delay: Math.random() * 3
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Unicorn Studio Embed */}
           <div 
             data-us-project="FJCMeOcu2KP1kPy5ZnwU" 
             style={{ 
-              width: '100vw', 
-              height: '100vh',
+              width: '1440px', 
+              height: '900px',
               position: 'absolute',
-              top: 0,
-              left: 0
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              minWidth: '100vw',
+              minHeight: '100vh',
+              zIndex: 2
             }}
           />
+          
           {/* Gradient overlays to blend with dark theme */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" style={{ zIndex: 2 }} />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" style={{ zIndex: 2 }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" style={{ zIndex: 3 }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" style={{ zIndex: 3 }} />
         </div>
 
         <div className="w-full max-w-7xl mx-auto px-4 relative" style={{ zIndex: 10 }}>
