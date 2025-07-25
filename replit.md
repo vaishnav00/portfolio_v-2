@@ -10,29 +10,24 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
-### Enhanced Space Theme Animation System (July 25, 2025)
-- Applied seamless black space theme across all sections without visible borders
-- Dramatically expanded animated background with comprehensive space elements:
-  - Shooting stars with realistic trails and glow effects
-  - Comet formations with dynamic head and tail animations
-  - Nebula clouds with color-shifting gradients
-  - Twinkling star field with varied opacity and scale
-  - Asteroid belt with irregular shapes and orbital motion
-  - Solar flares with organic flame-like movement
-  - Energy waves radiating from center points
-  - Floating debris with random movement patterns
-  - Plasma bursts with colorful gradient explosions
-  - Meteor showers with authentic trail effects
-  - Mini galaxy spirals with rotating arms
-  - Cosmic dust clouds with subtle drift animation
-  - Pulsating black holes with event horizons and accretion disks
-- Optimized particle counts and timing for immersive experience
-- Maintained consistent animations across all portfolio sections
+### Google Dino Game with Leaderboard (July 25, 2025)
+- Replaced Snake game with Google Dino game featuring authentic jump mechanics
+- Implemented PostgreSQL database with dino_scores table for persistent leaderboard
+- Created complete API endpoints for score submission and retrieval
+- Added player name input system for leaderboard entries
+- Designed minimal animated dino icon trigger (no container box)
+- Game includes collision detection, scoring system, and real-time leaderboard display
+
+### Clean WebGL Aesthetic Design (July 25, 2025)
+- Removed all complex space animations (comets, asteroids, nebula) for minimal design
+- Applied matte black background with subtle geometric WebGL-style animations
+- Maintained clean white/gray accent colors throughout portfolio
+- Streamlined particle system for optimal performance and visual clarity
 
 ### Unicorn Studio Integration
 - Embedded 3D animation from Unicorn Studio (Project ID: fcvCpXXYd1Gs62j0K6IQ)
 - Used exact dimensions (1440px x 900px) for optimal display
-- Integrated seamlessly with enhanced space background animations
+- Integrated seamlessly with minimal background animations
 
 ## System Architecture
 

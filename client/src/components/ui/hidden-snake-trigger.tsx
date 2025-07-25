@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-import { SnakeGame } from '@/components/games/snake-game';
+import { DinoGame } from '@/components/games/dino-game';
 
-export function HiddenSnakeTrigger() {
+export function HiddenGameTrigger() {
   const [isGameOpen, setIsGameOpen] = useState(false);
 
   return (
     <>
-      {/* Simple Snake Icon Trigger */}
+      {/* Simple Dino Icon Trigger */}
       <motion.div
         className="fixed bottom-6 right-6 z-50 cursor-pointer"
         initial={{ opacity: 1 }}
@@ -18,20 +18,21 @@ export function HiddenSnakeTrigger() {
         }}
         animate={{
           y: [0, -4, 0],
-          rotate: [0, 5, -5, 0]
+          rotate: [0, 2, -2, 0]
         }}
         transition={{
           y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
           rotate: { duration: 4, repeat: Infinity, ease: "easeInOut" }
         }}
         onClick={() => setIsGameOpen(true)}
-        title="🐍 Click me!"
+        title="🦕 Click me!"
       >
-        {/* Simple snake icon */}
+        {/* Simple dino icon */}
         <div className="relative">
-          {/* Snake head */}
+          {/* Dino body */}
           <motion.div 
-            className="w-4 h-4 bg-white rounded-full relative"
+            className="w-5 h-8 bg-white relative"
+            style={{ borderRadius: '20% 20% 40% 40%' }}
             animate={{
               boxShadow: [
                 "0 0 5px rgba(255, 255, 255, 0.5)",
@@ -41,31 +42,27 @@ export function HiddenSnakeTrigger() {
             }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            {/* Snake eyes */}
-            <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 bg-black rounded-full" />
-            <div className="absolute top-0.5 right-0.5 w-0.5 h-0.5 bg-black rounded-full" />
+            {/* Dino eye */}
+            <div className="absolute top-1 right-1 w-1 h-1 bg-black rounded-full" />
+            
+            {/* Dino legs */}
+            <div className="absolute bottom-0 left-0 w-1 h-2 bg-white" />
+            <div className="absolute bottom-0 right-0 w-1 h-2 bg-white" />
           </motion.div>
           
-          {/* Snake body segments */}
-          {[...Array(3)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="w-3 h-3 bg-white rounded-full absolute opacity-70"
-              style={{
-                top: `${(i + 1) * 6}px`,
-                left: `2px`,
-              }}
-              animate={{
-                scale: [0.8, 1.1, 0.8],
-                opacity: [0.5, 0.8, 0.5]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: i * 0.2
-              }}
-            />
-          ))}
+          {/* Dino tail */}
+          <motion.div
+            className="w-2 h-4 bg-white absolute top-2 -left-1"
+            style={{ borderRadius: '50% 0 0 50%' }}
+            animate={{
+              rotate: [0, 10, -10, 0]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
         </div>
       </motion.div>
 
@@ -107,16 +104,16 @@ export function HiddenSnakeTrigger() {
                 <h2 className="text-2xl font-black text-white mb-2">
                   Game Unlocked!
                 </h2>
-                <p className="text-gray-300">You found the hidden Snake game!</p>
+                <p className="text-gray-300">You found the hidden Dino game!</p>
               </motion.div>
 
-              {/* Snake Game Component */}
+              {/* Dino Game Component */}
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.3 }}
               >
-                <SnakeGame />
+                <DinoGame />
               </motion.div>
             </motion.div>
           </motion.div>

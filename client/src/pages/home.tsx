@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-import { HiddenSnakeTrigger } from '@/components/ui/hidden-snake-trigger';
+import { HiddenGameTrigger } from '@/components/ui/hidden-snake-trigger';
 import AnimatedBackground from '@/components/ui/animated-background';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -103,8 +103,8 @@ export default function Home() {
 
 
 
-      {/* Hidden Snake Game Trigger */}
-      <HiddenSnakeTrigger />
+      {/* Hidden Dino Game Trigger */}
+      <HiddenGameTrigger />
 
       {/* Navigation */}
       <motion.nav 
