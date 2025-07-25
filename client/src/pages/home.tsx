@@ -97,7 +97,7 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Scroll Progress Indicator */}
       <motion.div
-        className="scroll-indicator fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-green origin-left z-50"
+        className="scroll-indicator fixed top-0 left-0 right-0 h-1 bg-white origin-left z-50"
         style={{ scaleX }}
       />
 
@@ -116,7 +116,7 @@ export default function Home() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <motion.div 
-              className="text-2xl font-bold text-neon-blue animate-glow"
+              className="text-2xl font-bold text-white"
               whileHover={{ scale: 1.05 }}
             >
               Portfolio
@@ -126,7 +126,7 @@ export default function Home() {
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="hover:text-neon-blue transition-colors duration-300"
+                  className="hover:text-white transition-colors duration-300 text-gray-300 font-medium"
                   whileHover={{ scale: 1.1 }}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -185,9 +185,9 @@ export default function Home() {
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className="w-6 h-10 border-2 border-neon-blue rounded-full flex justify-center">
+          <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
             <motion.div 
-              className="w-1 h-3 bg-neon-blue rounded-full mt-2"
+              className="w-1 h-3 bg-white rounded-full mt-2"
               animate={{ opacity: [1, 0, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
@@ -207,9 +207,7 @@ export default function Home() {
             className="text-center"
           >
             <motion.h1 
-              className="text-6xl md:text-8xl font-black mb-8 text-glitch animate-glow"
-              data-text="DEVELOPER"
-              style={{ textShadow: '0 0 30px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 255, 136, 0.4)' }}
+              className="text-6xl md:text-8xl font-black mb-8 text-white"
             >
               DEVELOPER
             </motion.h1>
@@ -218,8 +216,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-2xl md:text-4xl font-light text-neon-blue mb-12 animate-glow"
-              style={{ textShadow: '0 0 20px rgba(0, 212, 255, 0.8)' }}
+              className="text-2xl md:text-4xl font-medium text-gray-300 mb-12"
             >
               & Creative Technologist
             </motion.h2>
@@ -232,10 +229,10 @@ export default function Home() {
               viewport={{ once: true }}
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
-              <Button className="magnetic-hover glass-effect px-10 py-5 rounded-full border-2 border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-black transition-all duration-300 text-lg font-semibold backdrop-blur-md shadow-2xl">
+              <Button className="minimal-button px-10 py-5 rounded-lg text-lg font-bold">
                 View My Work
               </Button>
-              <Button className="magnetic-hover glass-effect px-10 py-5 rounded-full border-2 border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-black transition-all duration-300 text-lg font-semibold backdrop-blur-md shadow-2xl">
+              <Button className="minimal-card px-10 py-5 rounded-lg border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300 text-lg font-bold">
                 Download Resume
               </Button>
             </motion.div>
@@ -255,7 +252,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="order-2 lg:order-1"
             >
-              <h2 className="text-5xl font-bold mb-6 text-neon-green">About Me</h2>
+              <h2 className="text-5xl font-black mb-6 text-white">About Me</h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">
                 I'm a passionate full-stack developer and creative technologist with a love for pushing the boundaries of web experiences. I specialize in creating immersive digital solutions that blend cutting-edge technology with stunning visual design.
               </p>
@@ -264,14 +261,14 @@ export default function Home() {
               </p>
               <div className="flex space-x-4">
                 {[
-                  { icon: Github, color: 'text-neon-blue' },
-                  { icon: Linkedin, color: 'text-neon-purple' },
-                  { icon: Twitter, color: 'text-neon-green' }
+                  { icon: Github, color: 'text-white' },
+                  { icon: Linkedin, color: 'text-white' },
+                  { icon: Twitter, color: 'text-white' }
                 ].map(({ icon: Icon, color }, index) => (
                   <motion.a
                     key={index}
                     href="#"
-                    className={`${color} hover:text-white transition-colors text-2xl`}
+                    className={`${color} hover:text-gray-300 transition-colors text-2xl`}
                     whileHover={{ scale: 1.2, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
                   >
@@ -309,7 +306,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-5xl font-bold text-center mb-16 text-neon-purple animate-glow"
+            className="text-5xl font-black text-center mb-16 text-white"
           >
             Featured Projects
           </motion.h2>

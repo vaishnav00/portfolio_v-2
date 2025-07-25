@@ -5,53 +5,53 @@
 :root {
   --background: hsl(0, 0%, 0%);
   --foreground: hsl(0, 0%, 98%);
-  --muted: hsl(240, 3.7%, 15.9%);
-  --muted-foreground: hsl(240, 5%, 64.9%);
-  --popover: hsl(0, 0%, 0%);
+  --muted: hsl(0, 0%, 15%);
+  --muted-foreground: hsl(0, 0%, 60%);
+  --popover: hsl(0, 0%, 5%);
   --popover-foreground: hsl(0, 0%, 98%);
-  --card: hsl(0, 0%, 0%);
+  --card: hsl(0, 0%, 5%);
   --card-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 3.7%, 15.9%);
-  --input: hsl(240, 3.7%, 15.9%);
-  --primary: hsl(195, 100%, 50%);
+  --border: hsl(0, 0%, 20%);
+  --input: hsl(0, 0%, 15%);
+  --primary: hsl(0, 0%, 98%);
   --primary-foreground: hsl(0, 0%, 0%);
-  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary: hsl(0, 0%, 15%);
   --secondary-foreground: hsl(0, 0%, 98%);
-  --accent: hsl(240, 3.7%, 15.9%);
+  --accent: hsl(0, 0%, 20%);
   --accent-foreground: hsl(0, 0%, 98%);
   --destructive: hsl(0, 62.8%, 30.6%);
   --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(240, 4.9%, 83.9%);
+  --ring: hsl(0, 0%, 30%);
   --radius: 0.5rem;
-  --neon-blue: hsl(195, 100%, 50%);
-  --neon-purple: hsl(271, 81%, 56%);
-  --neon-green: hsl(158, 100%, 50%);
+  --minimal-white: hsl(0, 0%, 98%);
+  --minimal-gray: hsl(0, 0%, 60%);
+  --minimal-dark: hsl(0, 0%, 20%);
 }
 
 .dark {
   --background: hsl(0, 0%, 0%);
   --foreground: hsl(0, 0%, 98%);
-  --muted: hsl(240, 3.7%, 15.9%);
-  --muted-foreground: hsl(240, 5%, 64.9%);
-  --popover: hsl(0, 0%, 0%);
+  --muted: hsl(0, 0%, 15%);
+  --muted-foreground: hsl(0, 0%, 60%);
+  --popover: hsl(0, 0%, 5%);
   --popover-foreground: hsl(0, 0%, 98%);
-  --card: hsl(0, 0%, 0%);
+  --card: hsl(0, 0%, 5%);
   --card-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 3.7%, 15.9%);
-  --input: hsl(240, 3.7%, 15.9%);
-  --primary: hsl(195, 100%, 50%);
+  --border: hsl(0, 0%, 20%);
+  --input: hsl(0, 0%, 15%);
+  --primary: hsl(0, 0%, 98%);
   --primary-foreground: hsl(0, 0%, 0%);
-  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary: hsl(0, 0%, 15%);
   --secondary-foreground: hsl(0, 0%, 98%);
-  --accent: hsl(240, 3.7%, 15.9%);
+  --accent: hsl(0, 0%, 20%);
   --accent-foreground: hsl(0, 0%, 98%);
   --destructive: hsl(0, 62.8%, 30.6%);
   --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(240, 4.9%, 83.9%);
+  --ring: hsl(0, 0%, 30%);
   --radius: 0.5rem;
-  --neon-blue: hsl(195, 100%, 50%);
-  --neon-purple: hsl(271, 81%, 56%);
-  --neon-green: hsl(158, 100%, 50%);
+  --minimal-white: hsl(0, 0%, 98%);
+  --minimal-gray: hsl(0, 0%, 60%);
+  --minimal-dark: hsl(0, 0%, 20%);
 }
 
 @layer base {
@@ -61,7 +61,8 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 500;
     background: hsl(0, 0%, 0%);
     overflow-x: hidden;
   }
@@ -73,86 +74,78 @@
 
 @layer components {
   .glass-effect {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  .neon-border {
-    border: 1px solid;
-    border-image: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-green)) 1;
+  .minimal-border {
+    border: 1px solid var(--minimal-dark);
   }
 
-  .neon-glow-blue {
-    box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
+  .minimal-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.5rem;
   }
 
-  .neon-glow-purple {
-    box-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple);
+  .minimal-button {
+    background: var(--minimal-white);
+    color: var(--background);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
   }
 
-  .neon-glow-green {
-    box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+  .minimal-button:hover {
+    background: var(--minimal-gray);
+    transform: translateY(-1px);
   }
 
-  .text-neon-blue {
-    color: var(--neon-blue);
+  .text-minimal-white {
+    color: var(--minimal-white);
   }
 
-  .text-neon-purple {
-    color: var(--neon-purple);
+  .text-minimal-gray {
+    color: var(--minimal-gray);
   }
 
-  .text-neon-green {
-    color: var(--neon-green);
+  .text-minimal-dark {
+    color: var(--minimal-dark);
   }
 
-  .border-neon-blue {
-    border-color: var(--neon-blue);
+  .border-minimal-white {
+    border-color: var(--minimal-white);
   }
 
-  .border-neon-purple {
-    border-color: var(--neon-purple);
+  .border-minimal-gray {
+    border-color: var(--minimal-gray);
   }
 
-  .border-neon-green {
-    border-color: var(--neon-green);
+  .border-minimal-dark {
+    border-color: var(--minimal-dark);
   }
 
-  .bg-neon-blue {
-    background-color: var(--neon-blue);
+  .bg-minimal-white {
+    background-color: var(--minimal-white);
   }
 
-  .bg-neon-purple {
-    background-color: var(--neon-purple);
+  .bg-minimal-gray {
+    background-color: var(--minimal-gray);
   }
 
-  .bg-neon-green {
-    background-color: var(--neon-green);
+  .bg-minimal-dark {
+    background-color: var(--minimal-dark);
   }
 
-  .hover\:bg-neon-blue:hover {
-    background-color: var(--neon-blue);
+  .hover\:text-minimal-white:hover {
+    color: var(--minimal-white);
   }
 
-  .hover\:bg-neon-purple:hover {
-    background-color: var(--neon-purple);
-  }
-
-  .hover\:bg-neon-green:hover {
-    background-color: var(--neon-green);
-  }
-
-  .hover\:text-neon-blue:hover {
-    color: var(--neon-blue);
-  }
-
-  .hover\:text-neon-purple:hover {
-    color: var(--neon-purple);
-  }
-
-  .hover\:text-neon-green:hover {
-    color: var(--neon-green);
+  .hover\:bg-minimal-white:hover {
+    background-color: var(--minimal-white);
   }
 }
 

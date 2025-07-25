@@ -39,7 +39,7 @@ export default function AnimatedBackground({ intensity = 'medium', className = '
       {Array.from({ length: particleCount }).map((_, i) => (
         <motion.div
           key={`rain-${i}`}
-          className="absolute w-px h-16 bg-gradient-to-b from-neon-green to-transparent opacity-30"
+          className="absolute w-px h-16 bg-gradient-to-b from-white to-transparent opacity-15"
           style={{
             left: `${Math.random() * 100}%`,
             top: '-64px',
@@ -106,11 +106,11 @@ export default function AnimatedBackground({ intensity = 'medium', className = '
         >
           <div className="relative">
             {/* Comet head */}
-            <div className="w-2 h-2 bg-neon-blue rounded-full blur-sm" 
-                 style={{ boxShadow: '0 0 15px currentColor' }} />
+            <div className="w-2 h-2 bg-white rounded-full blur-sm" 
+                 style={{ boxShadow: '0 0 15px rgba(255, 255, 255, 0.6)' }} />
             {/* Comet tail */}
-            <div className="absolute -left-8 top-1 w-8 h-0.5 bg-gradient-to-r from-neon-blue to-transparent opacity-60" />
-            <div className="absolute -left-12 top-0.5 w-12 h-px bg-gradient-to-r from-neon-blue to-transparent opacity-40" />
+            <div className="absolute -left-8 top-1 w-8 h-0.5 bg-gradient-to-r from-white to-transparent opacity-40" />
+            <div className="absolute -left-12 top-0.5 w-12 h-px bg-gradient-to-r from-gray-300 to-transparent opacity-20" />
           </div>
         </motion.div>
       ))}
@@ -126,7 +126,7 @@ export default function AnimatedBackground({ intensity = 'medium', className = '
             width: `${100 + Math.random() * 200}px`,
             height: `${100 + Math.random() * 200}px`,
             background: `radial-gradient(circle, ${
-              ['rgba(139, 69, 255, 0.3)', 'rgba(0, 255, 136, 0.3)', 'rgba(0, 212, 255, 0.3)'][i % 3]
+              ['rgba(255, 255, 255, 0.1)', 'rgba(200, 200, 200, 0.08)', 'rgba(150, 150, 150, 0.06)'][i % 3]
             } 0%, transparent 70%)`,
             filter: 'blur(2px)'
           }}
@@ -171,7 +171,7 @@ export default function AnimatedBackground({ intensity = 'medium', className = '
       {Array.from({ length: orbCount }).map((_, i) => (
         <motion.div
           key={`orb-${i}`}
-          className="absolute w-1 h-1 rounded-full bg-neon-blue opacity-40"
+          className="absolute w-1 h-1 rounded-full bg-white opacity-20"
           style={{
             left: `${20 + Math.random() * 60}%`,
             top: `${20 + Math.random() * 60}%`,
