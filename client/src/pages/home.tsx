@@ -46,35 +46,33 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Load the exact Unicorn Studio script you provided
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.innerHTML = `
-      !function(){
-        if(!window.UnicornStudio){
-          window.UnicornStudio={isInitialized:!1};
-          var i=document.createElement("script");
-          i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
-          i.onload=function(){
-            window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)
-          };
-          (document.head || document.body).appendChild(i)
+    // Simple initialization check for Unicorn Studio
+    const checkAndInit = () => {
+      if (typeof window !== 'undefined' && window.UnicornStudio) {
+        if (!window.UnicornStudio.isInitialized) {
+          try {
+            window.UnicornStudio.init();
+            window.UnicornStudio.isInitialized = true;
+            console.log('Unicorn Studio initialized successfully');
+          } catch (error) {
+            console.error('Unicorn Studio init error:', error);
+          }
         }
-      }();
-    `;
-    
-    // Only add script if it doesn't already exist
-    if (!document.querySelector('script[data-us-init]')) {
-      script.setAttribute('data-us-init', 'true');
-      document.head.appendChild(script);
-    }
-
-    return () => {
-      // Clean up on unmount
-      const existingScript = document.querySelector('script[data-us-init]');
-      if (existingScript && existingScript.parentNode) {
-        existingScript.parentNode.removeChild(existingScript);
+      } else {
+        console.log('Waiting for Unicorn Studio to load...');
       }
+    };
+
+    // Check immediately
+    checkAndInit();
+    
+    // Also check after delays to catch async loading
+    const timer1 = setTimeout(checkAndInit, 500);
+    const timer2 = setTimeout(checkAndInit, 2000);
+    
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
     };
   }, []);
 
@@ -141,31 +139,50 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-        {/* Full-screen Unicorn Studio Background */}
-        <div 
-          className="absolute inset-0 w-full h-full"
-          style={{ zIndex: 1 }}
-        >
-          {/* Consistent animated background */}
-          <AnimatedBackground />
+        {/* Background layers */}
+        <div className="absolute inset-0 w-full h-full">
+          {/* Animated background at lowest layer */}
+          <div style={{ zIndex: 1 }}>
+            <AnimatedBackground />
+          </div>
           
-          {/* Unicorn Studio Embed - Updated */}
+          {/* Unicorn Studio Embed - Responsive */}
           <div 
             data-us-project="fcvCpXXYd1Gs62j0K6IQ" 
             style={{ 
-              width: '1440px', 
-              height: '900px',
+              width: 'min(1440px, 90vw)', 
+              height: 'min(900px, 60vh)',
+              maxWidth: '1440px',
+              maxHeight: '900px',
               position: 'absolute',
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              zIndex: 2
+              zIndex: 10,
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '3px solid rgba(255,255,255,0.3)',
+              borderRadius: '12px'
             }}
-          />
-          
-          {/* Gradient overlays to blend with dark theme */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" style={{ zIndex: 3 }} />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" style={{ zIndex: 3 }} />
+          >
+            {/* Visible placeholder to confirm positioning */}
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              color: 'white',
+              fontSize: '28px',
+              textAlign: 'center',
+              zIndex: 1,
+              fontWeight: 'bold'
+            }}>
+              🦄 Unicorn Studio Animation
+              <br />
+              <span style={{ fontSize: '16px', opacity: 0.7 }}>
+                Project: fcvCpXXYd1Gs62j0K6IQ
+              </span>
+            </div>
+          </div>
         </div>
 
 
