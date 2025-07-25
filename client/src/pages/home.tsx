@@ -46,33 +46,35 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Simple initialization check for Unicorn Studio
-    const checkAndInit = () => {
-      if (typeof window !== 'undefined' && window.UnicornStudio) {
-        if (!window.UnicornStudio.isInitialized) {
-          try {
-            window.UnicornStudio.init();
-            window.UnicornStudio.isInitialized = true;
-            console.log('Unicorn Studio initialized successfully');
-          } catch (error) {
-            console.error('Unicorn Studio init error:', error);
-          }
+    // Load the exact Unicorn Studio script you provided
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.innerHTML = `
+      !function(){
+        if(!window.UnicornStudio){
+          window.UnicornStudio={isInitialized:!1};
+          var i=document.createElement("script");
+          i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
+          i.onload=function(){
+            window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)
+          };
+          (document.head || document.body).appendChild(i)
         }
-      } else {
-        console.log('Waiting for Unicorn Studio to load...');
-      }
-    };
+      }();
+    `;
+    
+    // Only add script if it doesn't already exist
+    if (!document.querySelector('script[data-us-init]')) {
+      script.setAttribute('data-us-init', 'true');
+      document.head.appendChild(script);
+    }
 
-    // Check immediately
-    checkAndInit();
-    
-    // Also check after delays to catch async loading
-    const timer1 = setTimeout(checkAndInit, 500);
-    const timer2 = setTimeout(checkAndInit, 2000);
-    
     return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
+      // Clean up on unmount
+      const existingScript = document.querySelector('script[data-us-init]');
+      if (existingScript && existingScript.parentNode) {
+        existingScript.parentNode.removeChild(existingScript);
+      }
     };
   }, []);
 
@@ -123,7 +125,7 @@ export default function Home() {
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="hover:text-white transition-colors duration-300 text-gray-300 font-medium"
+                  className="hover:text-white transition-colors duration-300 text-gray-300 font-medium clickable"
                   whileHover={{ scale: 1.1 }}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -139,50 +141,30 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-        {/* Background layers */}
-        <div className="absolute inset-0 w-full h-full">
-          {/* Animated background at lowest layer */}
-          <div style={{ zIndex: 1 }}>
-            <AnimatedBackground />
-          </div>
+        {/* Full-screen Unicorn Studio Background */}
+        <div 
+          className="absolute inset-0 w-full h-full"
+          style={{ zIndex: 1 }}
+        >
+          {/* Consistent animated background */}
+          <AnimatedBackground />
           
-          {/* Unicorn Studio Embed - Responsive */}
+          {/* Unicorn Studio Embed - with fallback */}
           <div 
             data-us-project="fcvCpXXYd1Gs62j0K6IQ" 
             style={{ 
-              width: 'min(1440px, 90vw)', 
-              height: 'min(900px, 60vh)',
-              maxWidth: '1440px',
-              maxHeight: '900px',
+              width: '100vw', 
+              height: '100vh',
               position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              zIndex: 10,
-              backgroundColor: 'rgba(255,255,255,0.05)',
-              border: '3px solid rgba(255,255,255,0.3)',
-              borderRadius: '12px'
+              top: '0',
+              left: '0',
+              zIndex: 2
             }}
-          >
-            {/* Visible placeholder to confirm positioning */}
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              color: 'white',
-              fontSize: '28px',
-              textAlign: 'center',
-              zIndex: 1,
-              fontWeight: 'bold'
-            }}>
-              🦄 Unicorn Studio Animation
-              <br />
-              <span style={{ fontSize: '16px', opacity: 0.7 }}>
-                Project: fcvCpXXYd1Gs62j0K6IQ
-              </span>
-            </div>
-          </div>
+          />
+          
+          {/* Gradient overlays to blend with dark theme */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" style={{ zIndex: 3 }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" style={{ zIndex: 3 }} />
         </div>
 
 
@@ -244,7 +226,7 @@ export default function Home() {
               >
                 <Button 
                   onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-white text-black hover:bg-gray-200 px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="bg-white text-black hover:bg-gray-200 px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
                 >
                   View My Work
                 </Button>
@@ -257,7 +239,7 @@ export default function Home() {
               >
                 <Button 
                   variant="outline"
-                  className="border-2 border-white text-white hover:bg-white hover:text-black px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="border-2 border-white text-white hover:bg-white hover:text-black px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
                 >
                   Download Resume
                 </Button>
@@ -295,7 +277,7 @@ export default function Home() {
                   <motion.a
                     key={index}
                     href="#"
-                    className={`${color} hover:text-gray-300 transition-colors text-3xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10`}
+                    className={`${color} hover:text-gray-300 transition-colors text-3xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10 clickable`}
                     whileHover={{ scale: 1.15, y: -3, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -384,7 +366,7 @@ export default function Home() {
                   <div className="flex space-x-4">
                     <motion.a
                       href="#"
-                      className="text-white hover:text-gray-300 transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white"
+                      className="text-white hover:text-gray-300 transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white clickable"
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -393,7 +375,7 @@ export default function Home() {
                     </motion.a>
                     <motion.a
                       href="#"
-                      className="text-gray-300 hover:text-white transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white"
+                      className="text-gray-300 hover:text-white transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white clickable"
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -550,7 +532,7 @@ export default function Home() {
                 >
                   <Button
                     type="submit"
-                    className="w-full bg-white text-black hover:bg-gray-200 px-8 py-4 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full bg-white text-black hover:bg-gray-200 px-8 py-4 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
                   >
                     <Mail className="mr-2" size={20} />
                     Send Message
@@ -583,7 +565,7 @@ export default function Home() {
               <motion.a
                 key={index}
                 href="#"
-                className={`${color} hover:text-gray-300 transition-colors text-2xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10`}
+                className={`${color} hover:text-gray-300 transition-colors text-2xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10 clickable`}
                 whileHover={{ scale: 1.15, y: -3, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
