@@ -150,34 +150,63 @@ export default function Home() {
           {/* Consistent animated background */}
           <AnimatedBackground />
           
-          {/* Unicorn Studio Embed */}
-          <div>
-            <div 
-              data-us-project="fcvCpXXYd1Gs62j0K6IQ" 
-              style={{ 
-                width: '1440px', 
-                height: '900px',
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                zIndex: 2
-              }}
-            />
-            <script 
-              type="text/javascript"
-              dangerouslySetInnerHTML={{
-                __html: `!function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head || document.body).appendChild(i)}}();`
-              }}
-            />
-          </div>
+          {/* Unicorn Studio Embed - with fallback */}
+          <div 
+            data-us-project="fcvCpXXYd1Gs62j0K6IQ" 
+            style={{ 
+              width: '100vw', 
+              height: '100vh',
+              position: 'absolute',
+              top: '0',
+              left: '0',
+              zIndex: 2
+            }}
+          />
           
           {/* Gradient overlays to blend with dark theme */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" style={{ zIndex: 3 }} />
           <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" style={{ zIndex: 3 }} />
         </div>
 
-
+        {/* Hero Content Overlay */}
+        <div className="relative z-10 text-center px-6">
+          <motion.h1 
+            className="text-6xl md:text-8xl font-black mb-6 text-white"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
+            Creative Developer
+          </motion.h1>
+          <motion.p 
+            className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.8 }}
+          >
+            Crafting immersive digital experiences through innovative technology and stunning visual design
+          </motion.p>
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.1 }}
+          >
+            <Button 
+              className="bg-white text-black hover:bg-gray-200 px-8 py-3 text-lg font-semibold"
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              View Projects
+            </Button>
+            <Button 
+              variant="outline" 
+              className="border-white text-white hover:bg-white hover:text-black px-8 py-3 text-lg font-semibold"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Get In Touch
+            </Button>
+          </motion.div>
+        </div>
 
         {/* Scroll Indicator */}
         <motion.div 
