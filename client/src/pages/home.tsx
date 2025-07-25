@@ -12,7 +12,6 @@ declare global {
 }
 import { ParticleBackground } from '@/components/ui/particle-background';
 import { HiddenSnakeTrigger } from '@/components/ui/hidden-snake-trigger';
-import { TicTacToe } from '@/components/games/tic-tac-toe';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -122,7 +121,7 @@ export default function Home() {
               Portfolio
             </motion.div>
             <div className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item, index) => (
+              {['Home', 'About', 'Projects', 'Mystery', 'Skills', 'Contact'].map((item, index) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -453,43 +452,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Interactive Showcase Section */}
-      <section id="games" className="py-20 relative z-10">
+      {/* Mystery Section */}
+      <section id="mystery" className="py-20 relative z-10">
         <div className="container mx-auto px-6">
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-5xl font-bold text-center mb-16 text-neon-blue animate-glow"
-          >
-            Interactive Experience
-          </motion.h2>
-          
-          <div className="flex justify-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="max-w-2xl"
-            >
-              <TicTacToe />
-            </motion.div>
-          </div>
-          
-          {/* Mystery hint */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mt-12"
+            className="text-center"
           >
-            <p className="text-gray-400 text-lg">
-              🎯 <span className="text-neon-green">Psst...</span> There might be a hidden surprise somewhere on this page. 
-              <span className="text-neon-purple animate-pulse"> Keep exploring! 🐍</span>
-            </p>
+            <motion.h2 
+              className="text-5xl font-bold mb-8 text-neon-green animate-glow"
+              animate={{ 
+                textShadow: [
+                  "0 0 20px #00FF88",
+                  "0 0 30px #00FF88, 0 0 40px #00D4FF",
+                  "0 0 20px #00FF88"
+                ]
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              Hidden Treasures
+            </motion.h2>
+            
+            <motion.p 
+              className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
+              animate={{ opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 4, repeat: Infinity }}
+            >
+              This portfolio contains secret interactive elements waiting to be discovered. 
+              <span className="text-neon-blue"> Explore every corner...</span>
+            </motion.p>
+            
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              {[
+                { icon: "🎮", title: "Interactive Games", hint: "Look for moving elements..." },
+                { icon: "🎯", title: "Easter Eggs", hint: "Click on unexpected things..." },
+                { icon: "✨", title: "Surprises", hint: "Bottom corners hold secrets..." }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="glass-effect rounded-xl p-6 neon-border"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-4xl mb-4">{item.icon}</div>
+                  <h3 className="text-xl font-bold text-neon-purple mb-2">{item.title}</h3>
+                  <p className="text-gray-400 text-sm italic">{item.hint}</p>
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </section>
