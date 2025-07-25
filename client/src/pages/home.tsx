@@ -185,19 +185,19 @@ export default function Home() {
           </div>
           
           {/* Unicorn Studio Embed */}
-          <div 
-            data-us-project="FJCMeOcu2KP1kPy5ZnwU" 
+          <iframe
+            src="https://unicorn.studio/remix/SjN5vslkw6LG3ECDoY4T"
             style={{ 
-              width: '1440px', 
-              height: '900px',
+              width: '100vw', 
+              height: '100vh',
               position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              minWidth: '100vw',
-              minHeight: '100vh',
+              top: 0,
+              left: 0,
+              border: 'none',
               zIndex: 2
             }}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
           />
           
           {/* Gradient overlays to blend with dark theme */}
