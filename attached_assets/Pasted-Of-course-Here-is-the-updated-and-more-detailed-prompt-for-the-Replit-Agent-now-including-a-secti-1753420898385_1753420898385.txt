@@ -1,0 +1,52 @@
+Of course\! Here is the updated and more detailed prompt for the Replit Agent, now including a section for small, integrated games.
+
+-----
+
+### **Prompt for Replit Agent:**
+
+**Objective:** Build a modern, one-page personal portfolio website with advanced animations, an interactive hero section, and embedded mini-games.
+
+**Project Title:** Interactive Personal Portfolio with Games
+
+**Core Request:**
+Create a visually impressive, single-page portfolio website. The design should be clean, modern, and professional, with a strong focus on smooth, advanced animations and user interactions. The hero section must feature a 3D animation from Unicorn Studio, and the site should also include a section with playable mini-games.
+
+**1. Hero Section (Top of the Page):**
+This is the main feature. Use the following embed code to place a large, interactive animation at the very top of the website. It should be the first thing a visitor sees.
+
+  * **Project ID:** `FJCMe0cu2KP1kPy5ZniwU`
+  * **Embed Code:**
+    ```html
+    <div data-us-project="FJCMe0cu2KP1kPy5ZniwU" style="width: 100%; height: 900px;"></div>
+    <script async src="https://unicorn.studio/sdk.js"></script>
+    ```
+
+**2. Website Structure & Sections:**
+The website should be a single scrolling page with the following sections appearing below the hero animation:
+
+  * **About Me:** A short, engaging section with a professional photo and a brief biography. Use placeholder text. Animate the text and photo to fade in as the user scrolls to this section.
+  * **Projects:** A gallery of 3-4 portfolio projects. Each project should have an image, title, description, and links. Use a modern card-based layout with a "lift" or "glow" hover effect.
+  * **Games:** A fun, interactive section where visitors can play small games directly on the site.
+      * Create a clean, two-column layout for this section.
+      * **Game 1: Tic-Tac-Toe.** Build a fully functional Tic-Tac-Toe game. It should have a clean, minimalist design that matches the website's dark theme and accent color. Include a "Reset Game" button.
+      * **Game 2: Snake.** Build the classic Snake game. The game should be contained within a clearly defined canvas area. Style it with a modern, Tron-like aesthetic (glowing lines on a dark background) to fit the site's theme. Include the current score and a "Start/Restart" button.
+  * **Skills:** A section listing technical skills using clean icons and text.
+  * **Contact:** A simple contact form with fields for Name, Email, and Message. Include a "Send Message" button with a cool hover and click animation.
+
+**3. Styling and Animations:**
+This is crucial. The site must feel alive and modern.
+
+  * **Theme:** Use a dark mode theme. A deep charcoal or navy background (`#111827`) with white or light gray text and one bright accent color (like electric blue or purple) for links, buttons, and highlights.
+  * **Typography:** Use a clean, modern sans-serif font like 'Inter' or 'Poppins' from Google Fonts.
+  * **Scroll Animations:** As the user scrolls, each section (About, Projects, Games, etc.) should smoothly fade in and slide up into view.
+  * **Hover Effects:** All interactive elements (buttons, project cards, links) must have smooth and satisfying hover animations.
+  * **Page Loader:** Add a simple, elegant pre-loader animation that appears while the main Unicorn Studio element is loading.
+
+**4. Technical Stack:**
+
+  * **Framework:** Use React with Next.js for performance and structure.
+  * **Styling:** Use Tailwind CSS for a modern, utility-first approach.
+  * **Animations:** Use **Framer Motion** for component and scroll animations.
+  * **Games:** Build the games using **plain JavaScript, HTML, and CSS** within their respective React components.
+
+Please generate the full code structure for this website on Replit. Use placeholder text and images that I can easily replace later. Ensure the final website is fully responsive and looks great on all devices.
