@@ -290,16 +290,6 @@ export default function Home() {
             <Button className="magnetic-hover glass-effect px-8 py-4 rounded-full border border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-black transition-all duration-300">
               Download Resume
             </Button>
-            
-            {/* Subtle hint for the hidden game */}
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.5 }}
-              className="text-sm text-gray-500 mt-4 italic"
-            >
-              💡 <span className="text-neon-green">Pro tip:</span> Look for hidden treasures around the corner...
-            </motion.p>
           </motion.div>
         </div>
 
@@ -463,7 +453,7 @@ export default function Home() {
             className="text-center"
           >
             <motion.h2 
-              className="text-5xl font-bold mb-8 text-neon-green animate-glow"
+              className="text-5xl font-bold text-neon-green animate-glow"
               animate={{ 
                 textShadow: [
                   "0 0 20px #00FF88",
@@ -475,40 +465,6 @@ export default function Home() {
             >
               Hidden Treasures
             </motion.h2>
-            
-            <motion.p 
-              className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 4, repeat: Infinity }}
-            >
-              This portfolio contains secret interactive elements waiting to be discovered. 
-              <span className="text-neon-blue"> Explore every corner...</span>
-            </motion.p>
-            
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              {[
-                { icon: "🎮", title: "Interactive Games", hint: "Look for moving elements..." },
-                { icon: "🎯", title: "Easter Eggs", hint: "Click on unexpected things..." },
-                { icon: "✨", title: "Surprises", hint: "Bottom corners hold secrets..." }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="glass-effect rounded-xl p-6 neon-border"
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="text-4xl mb-4">{item.icon}</div>
-                  <h3 className="text-xl font-bold text-neon-purple mb-2">{item.title}</h3>
-                  <p className="text-gray-400 text-sm italic">{item.hint}</p>
-                </motion.div>
-              ))}
-            </motion.div>
           </motion.div>
         </div>
       </section>
