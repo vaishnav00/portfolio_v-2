@@ -168,45 +168,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" style={{ zIndex: 3 }} />
         </div>
 
-        {/* Hero Content Overlay */}
-        <div className="relative z-10 text-center px-6">
-          <motion.h1 
-            className="text-6xl md:text-8xl font-black mb-6 text-white"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          >
-            Creative Developer
-          </motion.h1>
-          <motion.p 
-            className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
-          >
-            Crafting immersive digital experiences through innovative technology and stunning visual design
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.1 }}
-          >
-            <Button 
-              className="bg-white text-black hover:bg-gray-200 px-8 py-3 text-lg font-semibold"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              View Projects
-            </Button>
-            <Button 
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-black px-8 py-3 text-lg font-semibold"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Get In Touch
-            </Button>
-          </motion.div>
-        </div>
+
 
         {/* Scroll Indicator */}
         <motion.div 
