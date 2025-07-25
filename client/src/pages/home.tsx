@@ -219,12 +219,31 @@ export default function Home() {
               viewport={{ once: true }}
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
-              <Button className="minimal-button px-10 py-5 rounded-lg text-lg font-bold">
-                View My Work
-              </Button>
-              <Button className="minimal-card px-10 py-5 rounded-lg border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300 text-lg font-bold">
-                Download Resume
-              </Button>
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              >
+                <Button 
+                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-white text-black hover:bg-gray-200 px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  View My Work
+                </Button>
+              </motion.div>
+              
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              >
+                <Button 
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white hover:text-black px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  Download Resume
+                </Button>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
@@ -249,18 +268,20 @@ export default function Home() {
               <p className="text-lg text-gray-400 mb-8 leading-relaxed">
                 With expertise in React, Node.js, and modern web technologies, I bring ideas to life through clean code and innovative user experiences. When I'm not coding, you'll find me exploring new technologies and creating interactive experiments.
               </p>
-              <div className="flex space-x-4">
+              <div className="flex space-x-6">
                 {[
-                  { icon: Github, color: 'text-white' },
-                  { icon: Linkedin, color: 'text-white' },
-                  { icon: Twitter, color: 'text-white' }
-                ].map(({ icon: Icon, color }, index) => (
+                  { icon: Github, color: 'text-white', label: 'GitHub' },
+                  { icon: Linkedin, color: 'text-white', label: 'LinkedIn' },
+                  { icon: Twitter, color: 'text-white', label: 'Twitter' }
+                ].map(({ icon: Icon, color, label }, index) => (
                   <motion.a
                     key={index}
                     href="#"
-                    className={`${color} hover:text-gray-300 transition-colors text-2xl`}
-                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    className={`${color} hover:text-gray-300 transition-colors text-3xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10`}
+                    whileHover={{ scale: 1.15, y: -3, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    title={label}
                   >
                     <Icon />
                   </motion.a>
@@ -345,15 +366,19 @@ export default function Home() {
                   <div className="flex space-x-4">
                     <motion.a
                       href="#"
-                      className="text-neon-green hover:text-white transition-colors flex items-center gap-2"
-                      whileHover={{ scale: 1.05 }}
+                      className="text-white hover:text-gray-300 transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     >
                       <ExternalLink size={16} /> Live Demo
                     </motion.a>
                     <motion.a
                       href="#"
-                      className="text-neon-purple hover:text-white transition-colors flex items-center gap-2"
-                      whileHover={{ scale: 1.05 }}
+                      className="text-gray-300 hover:text-white transition-colors flex items-center gap-2 font-semibold border-b border-transparent hover:border-white"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     >
                       <Github size={16} /> Code
                     </motion.a>
@@ -500,10 +525,14 @@ export default function Home() {
                   />
                 </div>
                 
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <motion.div 
+                  whileHover={{ scale: 1.05, y: -2 }} 
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                >
                   <Button
                     type="submit"
-                    className="w-full magnetic-hover glass-effect px-8 py-4 rounded-full border border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-black transition-all duration-300"
+                    className="w-full bg-white text-black hover:bg-gray-200 px-8 py-4 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     <Mail className="mr-2" size={20} />
                     Send Message
@@ -529,16 +558,18 @@ export default function Home() {
           </motion.p>
           <div className="flex justify-center space-x-6">
             {[
-              { icon: Github, color: 'text-neon-blue' },
-              { icon: Linkedin, color: 'text-neon-purple' },
-              { icon: Twitter, color: 'text-neon-green' }
-            ].map(({ icon: Icon, color }, index) => (
+              { icon: Github, color: 'text-white', label: 'GitHub' },
+              { icon: Linkedin, color: 'text-white', label: 'LinkedIn' },
+              { icon: Twitter, color: 'text-white', label: 'Twitter' }
+            ].map(({ icon: Icon, color, label }, index) => (
               <motion.a
                 key={index}
                 href="#"
-                className={`${color} hover:text-white transition-colors text-2xl`}
-                whileHover={{ scale: 1.2, y: -5 }}
+                className={`${color} hover:text-gray-300 transition-colors text-2xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10`}
+                whileHover={{ scale: 1.15, y: -3, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                title={label}
               >
                 <Icon />
               </motion.a>
