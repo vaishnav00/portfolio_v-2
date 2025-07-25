@@ -1,0 +1,257 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(0, 0%, 0%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(0, 0%, 0%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(195, 100%, 50%);
+  --primary-foreground: hsl(0, 0%, 0%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+  --neon-blue: hsl(195, 100%, 50%);
+  --neon-purple: hsl(271, 81%, 56%);
+  --neon-green: hsl(158, 100%, 50%);
+}
+
+.dark {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(0, 0%, 0%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(0, 0%, 0%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(195, 100%, 50%);
+  --primary-foreground: hsl(0, 0%, 0%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+  --neon-blue: hsl(195, 100%, 50%);
+  --neon-purple: hsl(271, 81%, 56%);
+  --neon-green: hsl(158, 100%, 50%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    background: hsl(0, 0%, 0%);
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .neon-border {
+    border: 1px solid;
+    border-image: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-green)) 1;
+  }
+
+  .neon-glow-blue {
+    box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
+  }
+
+  .neon-glow-purple {
+    box-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple);
+  }
+
+  .neon-glow-green {
+    box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+  }
+
+  .text-neon-blue {
+    color: var(--neon-blue);
+  }
+
+  .text-neon-purple {
+    color: var(--neon-purple);
+  }
+
+  .text-neon-green {
+    color: var(--neon-green);
+  }
+
+  .border-neon-blue {
+    border-color: var(--neon-blue);
+  }
+
+  .border-neon-purple {
+    border-color: var(--neon-purple);
+  }
+
+  .border-neon-green {
+    border-color: var(--neon-green);
+  }
+
+  .bg-neon-blue {
+    background-color: var(--neon-blue);
+  }
+
+  .bg-neon-purple {
+    background-color: var(--neon-purple);
+  }
+
+  .bg-neon-green {
+    background-color: var(--neon-green);
+  }
+
+  .hover\:bg-neon-blue:hover {
+    background-color: var(--neon-blue);
+  }
+
+  .hover\:bg-neon-purple:hover {
+    background-color: var(--neon-purple);
+  }
+
+  .hover\:bg-neon-green:hover {
+    background-color: var(--neon-green);
+  }
+
+  .hover\:text-neon-blue:hover {
+    color: var(--neon-blue);
+  }
+
+  .hover\:text-neon-purple:hover {
+    color: var(--neon-purple);
+  }
+
+  .hover\:text-neon-green:hover {
+    color: var(--neon-green);
+  }
+}
+
+@layer utilities {
+  .text-glitch {
+    position: relative;
+  }
+
+  .text-glitch::before,
+  .text-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .text-glitch::before {
+    animation: glitch-1 0.5s infinite;
+    color: var(--neon-blue);
+    z-index: -1;
+  }
+
+  .text-glitch::after {
+    animation: glitch-2 0.5s infinite;
+    color: var(--neon-purple);
+    z-index: -2;
+  }
+
+  @keyframes glitch-1 {
+    0%, 14%, 15%, 49%, 50%, 99%, 100% { transform: translate(0); }
+    15%, 49% { transform: translate(-2px, -1px); }
+  }
+
+  @keyframes glitch-2 {
+    0%, 20%, 21%, 62%, 63%, 99%, 100% { transform: translate(0); }
+    21%, 62% { transform: translate(2px, 1px); }
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--neon-blue);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(to right, var(--neon-blue), var(--neon-purple), var(--neon-green));
+    z-index: 1000;
+    transition: width 0.3s ease;
+  }
+
+  .magnetic-hover {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .magnetic-hover:hover {
+    transform: scale(1.05) translateY(-5px);
+  }
+
+  .game-canvas {
+    border: 2px solid var(--neon-blue);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  }
+}
+
+/* Custom animations */
+@keyframes pulse-neon {
+  0% { box-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 15px var(--neon-blue); }
+  100% { box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 10px var(--neon-blue); }
+  100% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
+}
+
+.animate-pulse-neon {
+  animation: pulse-neon 2s ease-in-out infinite alternate;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
