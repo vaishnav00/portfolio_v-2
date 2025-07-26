@@ -199,7 +199,6 @@ export default function Home() {
 
         {/* Navigation helper text - minimal */}
         <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-center" style={{ zIndex: 4 }}>
-          <p className="text-white text-sm opacity-70">Scroll or click navigation above</p>
         </div>
 
         {/* Scroll Indicator */}
@@ -302,24 +301,29 @@ export default function Home() {
             >
               <h2 className="text-5xl font-black mb-6 text-white">About Me</h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                I'm Vaishnav S Chandran, a motivated engineer with expertise in Computer Science and Electrical Engineering. 
-                I specialize in Machine Learning, Generative AI, and Python development, with a passion for building 
-                intelligent, user-focused solutions.
+                I'm Vaishnav S Chandran, an engineer with a dual background in Computer
+                  Science and Electrical Engineering. I thrive where code meets
+                  conversation, architecting the dialogue between human ideas and
+                  artificial intelligence. As a specialist in Machine Learning and
+                  Generative AI, I'm driven by the conviction that any vision is
+                  achievable—it's simply a matter of time and hard work. If you're ready to
+                  build what's next, let's connect.
               </p>
               <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                With experience at SanDisk and expertise in AI/ML pipelines, prompt engineering, and IoT systems, I'm driven 
-                to explore the evolving world of GenAI. I focus on creating robust AI applications, from adversarial training 
-                to explainable AI implementations.
+                Beyond my core skills, I'm also passionate about
+                  finance and the limitless potential of Generative AI. I'm always
+                  exploring new ideas where these fields intersect.
               </p>
               <div className="flex space-x-6">
                 {[
-                  { icon: Github, color: "text-white", label: "GitHub" },
-                  { icon: Linkedin, color: "text-white", label: "LinkedIn" },
-                  { icon: Twitter, color: "text-white", label: "Twitter" },
-                ].map(({ icon: Icon, color, label }, index) => (
+                  { icon: Github, color: "text-white", label: "GitHub", href: "https://github.com/vaishnav00" },
+                  { icon: Linkedin, color: "text-white", label: "LinkedIn", href: "https://www.linkedin.com/in/vaishnav-s-chandran-374b241bb/" },
+                ].map(({ icon: Icon, color, label, href }, index) => (
                   <motion.a
                     key={index}
-                    href="#"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`${color} hover:text-gray-300 transition-colors text-3xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10 clickable`}
                     whileHover={{ scale: 1.15, y: -3, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
@@ -514,14 +518,8 @@ export default function Home() {
               {
                 icon: Cpu,
                 title: "IoT & Hardware",
-                description: "PCB Design, Embedded Systems, Arduino",
+                description: "PCB Design, Embedded Systems, ",
                 color: "text-neon-purple",
-              },
-              {
-                icon: Shield,
-                title: "Adversarial AI",
-                description: "FGSM, PGD, Adversarial Training, Model Security",
-                color: "text-neon-green",
               },
             ].map((skill, index) => (
               <motion.div
@@ -659,13 +657,14 @@ export default function Home() {
           </motion.p>
           <div className="flex justify-center space-x-6">
             {[
-              { icon: Github, color: "text-white", label: "GitHub" },
-              { icon: Linkedin, color: "text-white", label: "LinkedIn" },
-              { icon: Twitter, color: "text-white", label: "Twitter" },
-            ].map(({ icon: Icon, color, label }, index) => (
+              { icon: Github, color: "text-white", label: "GitHub", href: "https://github.com/vaishnav00" },
+              { icon: Linkedin, color: "text-white", label: "LinkedIn", href: "https://www.linkedin.com/in/vaishnav-s-chandran-374b241bb/" },
+            ].map(({ icon: Icon, color, label, href }, index) => (
               <motion.a
                 key={index}
-                href="#"
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`${color} hover:text-gray-300 transition-colors text-2xl p-3 rounded-full border border-transparent hover:border-white/20 bg-white/5 hover:bg-white/10 clickable`}
                 whileHover={{ scale: 1.15, y: -3, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
