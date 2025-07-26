@@ -30,6 +30,11 @@ import {
   Server,
   Cloud,
   Smartphone,
+  Brain,
+  Cpu,
+  Database,
+  Shield,
+  BarChart3,
 } from "lucide-react";
 
 export default function Home() {
@@ -183,9 +188,52 @@ export default function Home() {
           />
         </div>
 
+        {/* Hero Content Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 4 }}>
+          <div className="text-center px-6">
+            <motion.h1 
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 text-white"
+            >
+              Vaishnav S Chandran
+            </motion.h1>
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="text-xl md:text-3xl font-medium text-gray-300 mb-8"
+            >
+              AI Engineer & Machine Learning Specialist
+            </motion.h2>
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.1 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
+              <Button
+                onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+                className="bg-white text-black hover:bg-gray-200 px-8 py-4 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
+              >
+                Learn More
+              </Button>
+              <Button
+                onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
+              >
+                View Projects
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+
         {/* Scroll Indicator */}
         <motion.div
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          style={{ zIndex: 5 }}
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
@@ -282,16 +330,14 @@ export default function Home() {
             >
               <h2 className="text-5xl font-black mb-6 text-white">About Me</h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                I'm a passionate full-stack developer and creative technologist
-                with a love for pushing the boundaries of web experiences. I
-                specialize in creating immersive digital solutions that blend
-                cutting-edge technology with stunning visual design.
+                I'm Vaishnav S Chandran, a motivated engineer with expertise in Computer Science and Electrical Engineering. 
+                I specialize in Machine Learning, Generative AI, and Python development, with a passion for building 
+                intelligent, user-focused solutions.
               </p>
               <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                With expertise in React, Node.js, and modern web technologies, I
-                bring ideas to life through clean code and innovative user
-                experiences. When I'm not coding, you'll find me exploring new
-                technologies and creating interactive experiments.
+                With experience at SanDisk and expertise in AI/ML pipelines, prompt engineering, and IoT systems, I'm driven 
+                to explore the evolving world of GenAI. I focus on creating robust AI applications, from adversarial training 
+                to explainable AI implementations.
               </p>
               <div className="flex space-x-6">
                 {[
@@ -353,28 +399,46 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: "AI Dashboard",
-                description:
-                  "A comprehensive analytics dashboard built with React and D3.js, featuring real-time data visualization and machine learning insights.",
-                image:
-                  "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400",
+                title: "AI Traffic Sign Recognition",
+                description: "Built a robust traffic sign classifier using adversarial training (FGSM, PGD) and XAI. Improved model accuracy under attack scenarios and added transparency to model decisions.",
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
                 color: "text-neon-blue",
+                year: "2025"
               },
               {
-                title: "E-Commerce Platform",
-                description:
-                  "Full-stack e-commerce solution with payment integration, inventory management, and advanced search capabilities.",
-                image:
-                  "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400",
+                title: "Generative AI Reports & Articles",
+                description: "Automated report and article creation from complex data using generative AI and LLMs to enhance clarity and communication.",
+                image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
                 color: "text-neon-green",
+                year: "2024"
               },
               {
-                title: "VR Experience",
-                description:
-                  "Immersive virtual reality application built with Three.js and WebXR, offering interactive 3D environments.",
-                image:
-                  "https://images.unsplash.com/photo-1592478411213-6153e4ebc696?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400",
+                title: "Decentralized File Sharing",
+                description: "A decentralized file sharing web app that leverages blockchain technology to provide secure, peer-to-peer file sharing.",
+                image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
                 color: "text-neon-purple",
+                year: "2024"
+              },
+              {
+                title: "Anime Ratings Prediction",
+                description: "Developed a novel machine learning model to predict anime scores using predictive analytics and explainable AI techniques.",
+                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+                color: "text-neon-blue",
+                year: "2023"
+              },
+              {
+                title: "AI-Driven Glaucoma Diagnosis",
+                description: "Utilized GenAI for data-driven glaucoma dataset exploration, feature selection, and predictive modeling to enhance early glaucoma diagnosis.",
+                image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+                color: "text-neon-green",
+                year: "2023"
+              },
+              {
+                title: "Bio-Signal Smoking Prediction",
+                description: "Developed a machine learning model to predict smoking status from bio-signal data using ML and explainable AI techniques.",
+                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+                color: "text-neon-purple",
+                year: "2023"
               },
             ].map((project, index) => (
               <motion.div
@@ -395,9 +459,10 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className={`text-2xl font-bold mb-3 ${project.color}`}>
+                  <h3 className={`text-2xl font-bold mb-2 ${project.color}`}>
                     {project.title}
                   </h3>
+                  <p className="text-gray-400 text-sm mb-3 font-semibold">{project.year}</p>
                   <p className="text-gray-300 mb-4">{project.description}</p>
                   <div className="flex space-x-4">
                     <motion.a
@@ -448,31 +513,43 @@ export default function Home() {
             Technical Skills
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: Code,
-                title: "Frontend",
-                description: "React, Next.js, Vue.js, TypeScript",
-                color: "text-neon-blue",
-              },
-              {
-                icon: Server,
-                title: "Backend",
-                description: "Node.js, Python, MongoDB, PostgreSQL",
+                icon: Brain,
+                title: "Gen AI & LLMs",
+                description: "Prompt Engineering, GPT, LLM Applications, AI Agents",
                 color: "text-neon-purple",
               },
               {
-                icon: Cloud,
-                title: "Cloud & DevOps",
-                description: "AWS, Docker, Kubernetes, CI/CD",
+                icon: BarChart3,
+                title: "Machine Learning",
+                description: "Python, TensorFlow, PyTorch, Scikit-learn, XAI",
+                color: "text-neon-blue",
+              },
+              {
+                icon: Code,
+                title: "Programming",
+                description: "Python, C++, MATLAB, JavaScript",
                 color: "text-neon-green",
               },
               {
-                icon: Smartphone,
-                title: "Mobile",
-                description: "React Native, Flutter, iOS, Android",
+                icon: Database,
+                title: "Data & Analytics",
+                description: "Power BI, Data Visualization, Predictive Modeling",
                 color: "text-neon-blue",
+              },
+              {
+                icon: Cpu,
+                title: "IoT & Hardware",
+                description: "PCB Design, Embedded Systems, Arduino",
+                color: "text-neon-purple",
+              },
+              {
+                icon: Shield,
+                title: "Adversarial AI",
+                description: "FGSM, PGD, Adversarial Training, Model Security",
+                color: "text-neon-green",
               },
             ].map((skill, index) => (
               <motion.div
