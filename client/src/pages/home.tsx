@@ -318,6 +318,7 @@ export default function Home() {
                 {[
                   { icon: Github, color: "text-white", label: "GitHub", href: "https://github.com/vaishnav00" },
                   { icon: Linkedin, color: "text-white", label: "LinkedIn", href: "https://www.linkedin.com/in/vaishnav-s-chandran-374b241bb/" },
+                  { icon: Twitter, color: "text-white", label: "Twitter", href: "https://x.com/vaishnav_vsc" },
                 ].map(({ icon: Icon, color, label, href }, index) => (
                   <motion.a
                     key={index}
@@ -659,6 +660,7 @@ export default function Home() {
             {[
               { icon: Github, color: "text-white", label: "GitHub", href: "https://github.com/vaishnav00" },
               { icon: Linkedin, color: "text-white", label: "LinkedIn", href: "https://www.linkedin.com/in/vaishnav-s-chandran-374b241bb/" },
+              { icon: Twitter, color: "text-white", label: "Twitter", href: "https://x.com/vaishnav_vsc" },
             ].map(({ icon: Icon, color, label, href }, index) => (
               <motion.a
                 key={index}
