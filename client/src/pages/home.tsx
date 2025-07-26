@@ -143,6 +143,13 @@ export default function Home() {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById(item.toLowerCase());
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                 >
                   {item}
                 </motion.a>
@@ -188,46 +195,11 @@ export default function Home() {
           />
         </div>
 
-        {/* Hero Content Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 4 }}>
-          <div className="text-center px-6">
-            <motion.h1 
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 text-white"
-            >
-              Vaishnav S Chandran
-            </motion.h1>
-            <motion.h2 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.8 }}
-              className="text-xl md:text-3xl font-medium text-gray-300 mb-8"
-            >
-              AI Engineer & Machine Learning Specialist
-            </motion.h2>
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.1 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-            >
-              <Button
-                onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
-                className="bg-white text-black hover:bg-gray-200 px-8 py-4 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
-              >
-                Learn More
-              </Button>
-              <Button
-                onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
-              >
-                View Projects
-              </Button>
-            </motion.div>
-          </div>
+
+
+        {/* Navigation helper text - minimal */}
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-center" style={{ zIndex: 4 }}>
+          <p className="text-white text-sm opacity-70">Scroll or click navigation above</p>
         </div>
 
         {/* Scroll Indicator */}
