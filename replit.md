@@ -17,6 +17,8 @@ Preferred communication style: Simple, everyday language.
 - Built dedicated /messages page for viewing all contact submissions
 - Contact form now saves real data instead of showing alerts
 - Messages include name, email, message content, and timestamp
+- Added SendGrid email notifications: automatic emails sent to vaishnavchandran00@gmail.com when someone contacts through portfolio
+- Email includes sender details, message content, timestamp, and link to view all messages
 
 ### Social Media Integration (July 30, 2025)
 - Added authentic social media links: LinkedIn, GitHub, and Twitter

@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertDinoScoreSchema, insertContactMessageSchema } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
+import { sendContactNotification } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Dino game leaderboard routes
@@ -47,6 +48,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const message = await storage.createContactMessage(result.data);
+      
+      // Send email notification to you
+      const emailSent = await sendContactNotification({
+        senderName: result.data.name,
+        senderEmail: result.data.email,
+        message: result.data.message,
+        timestamp: (message.createdAt || new Date()).toISOString()
+      });
+
+      if (emailSent) {
+        console.log('Email notification sent for new contact message');
+      }
+
       res.status(201).json({ success: true, message: "Message sent successfully" });
     } catch (error) {
       console.error("Failed to create contact message:", error);
