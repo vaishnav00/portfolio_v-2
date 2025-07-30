@@ -4,8 +4,12 @@ import { storage } from "./storage";
 import { insertDinoScoreSchema, insertContactMessageSchema } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
 import { sendContactNotification } from "./email";
+import { googleSheetsService } from "./googleSheets";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize Google Sheets service
+  await googleSheetsService.initialize();
+
   // Dino game leaderboard routes
   
   // Get top scores
@@ -57,8 +61,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         timestamp: (message.createdAt || new Date()).toISOString()
       });
 
+      // Save to Google Sheets
+      const sheetsSaved = await googleSheetsService.saveContactSubmission({
+        name: result.data.name,
+        email: result.data.email,
+        message: result.data.message,
+        timestamp: (message.createdAt || new Date()).toISOString()
+      });
+
       if (emailSent) {
         console.log('Email notification sent for new contact message');
+      }
+      
+      if (sheetsSaved) {
+        console.log('Contact message saved to Google Sheets');
       }
 
       res.status(201).json({ success: true, message: "Message sent successfully" });

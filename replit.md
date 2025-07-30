@@ -10,7 +10,7 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
-### Contact Message System (July 30, 2025)
+### Contact Message System with Google Sheets Integration (July 30, 2025)
 - Implemented complete contact form backend with database storage
 - Created contact_messages table for persistent message storage
 - Added API endpoints: POST /api/contact (submit) and GET /api/contact (retrieve)
@@ -19,6 +19,9 @@ Preferred communication style: Simple, everyday language.
 - Messages include name, email, message content, and timestamp
 - Added SendGrid email notifications: automatic emails sent to vaishnavchandran00@gmail.com when someone contacts through portfolio
 - Email includes sender details, message content, timestamp, and link to view all messages
+- Integrated Google Sheets API for automatic spreadsheet logging of all contact submissions
+- Created GOOGLE_SHEETS_SETUP.md with detailed configuration instructions
+- System gracefully handles missing Google Sheets credentials with fallback to database-only storage
 
 ### Social Media Integration (July 30, 2025)
 - Added authentic social media links: LinkedIn, GitHub, and Twitter
