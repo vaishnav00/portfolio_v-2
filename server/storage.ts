@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type DinoScore, type InsertDinoScore } from "@shared/schema";
+import { type User, type InsertUser, type DinoScore, type InsertDinoScore, type ContactMessage, type InsertContactMessage } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 // modify the interface with any CRUD methods
@@ -10,15 +10,19 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   getTopDinoScores(limit: number): Promise<DinoScore[]>;
   createDinoScore(score: InsertDinoScore): Promise<DinoScore>;
+  createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
+  getContactMessages(): Promise<ContactMessage[]>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private dinoScores: Map<string, DinoScore>;
+  private contactMessages: Map<string, ContactMessage>;
 
   constructor() {
     this.users = new Map();
     this.dinoScores = new Map();
+    this.contactMessages = new Map();
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -54,6 +58,26 @@ export class MemStorage implements IStorage {
     };
     this.dinoScores.set(id, score);
     return score;
+  }
+
+  async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
+    const id = randomUUID();
+    const message: ContactMessage = {
+      ...insertMessage,
+      id,
+      createdAt: new Date()
+    };
+    this.contactMessages.set(id, message);
+    return message;
+  }
+
+  async getContactMessages(): Promise<ContactMessage[]> {
+    const messages = Array.from(this.contactMessages.values());
+    return messages.sort((a, b) => {
+      const aDate = a.createdAt || new Date(0);
+      const bDate = b.createdAt || new Date(0);
+      return bDate.getTime() - aDate.getTime(); // Sort by newest first
+    });
   }
 }
 

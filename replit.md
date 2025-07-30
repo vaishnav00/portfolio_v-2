@@ -10,6 +10,20 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### Contact Message System (July 30, 2025)
+- Implemented complete contact form backend with database storage
+- Created contact_messages table for persistent message storage
+- Added API endpoints: POST /api/contact (submit) and GET /api/contact (retrieve)
+- Built dedicated /messages page for viewing all contact submissions
+- Contact form now saves real data instead of showing alerts
+- Messages include name, email, message content, and timestamp
+
+### Social Media Integration (July 30, 2025)
+- Added authentic social media links: LinkedIn, GitHub, and Twitter
+- Links appear in both About section and footer with hover animations
+- All links open in new tabs with proper security attributes
+- URLs: LinkedIn (vaishnav-s-chandran-374b241bb), GitHub (vaishnav00), Twitter (vaishnav_vsc)
+
 ### Google Dino Game with Leaderboard (July 25, 2025)
 - Replaced Snake game with Google Dino game featuring authentic jump mechanics
 - Implemented PostgreSQL database with dino_scores table for persistent leaderboard
@@ -25,9 +39,9 @@ Preferred communication style: Simple, everyday language.
 - Streamlined particle system for optimal performance and visual clarity
 
 ### Unicorn Studio Integration
-- Embedded 3D animation from Unicorn Studio (Project ID: fcvCpXXYd1Gs62j0K6IQ)
-- Used exact dimensions (1440px x 900px) for optimal display
-- Integrated seamlessly with minimal background animations
+- Embedded 3D animation from Unicorn Studio (Project ID: o91Mszogrc6tA7SO1wXQ)
+- Used exact dimensions with scaled/cropped positioning from bottom
+- Hero section displays clean animation without text overlay per user preference
 
 ## System Architecture
 
