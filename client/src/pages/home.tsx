@@ -181,9 +181,9 @@ export default function Home() {
         id="home"
         className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
       >
-        {/* Full-screen Unicorn Studio Background */}
+        {/* Full-screen Background with Fallback */}
         <div className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
-          {/* Consistent animated background */}
+          {/* Consistent animated background as fallback */}
           <AnimatedBackground />
 
           {/* Unicorn Studio Embed - scaled and cropped */}

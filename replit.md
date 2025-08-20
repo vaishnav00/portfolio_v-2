@@ -39,6 +39,9 @@ Preferred communication style: Simple, everyday language.
 - Added player name input system for leaderboard entries
 - Designed minimal animated dino icon trigger (no container box)
 - Game includes collision detection, scoring system, and real-time leaderboard display
+- Fixed game state management and navigation issues for seamless user experience
+- Added proper canvas cleanup and game loop termination when switching states
+- Confirmed reliable gameplay with smooth transitions between menu, game, and leaderboard
 
 ### Clean WebGL Aesthetic Design (July 25, 2025)
 - Removed all complex space animations (comets, asteroids, nebula) for minimal design

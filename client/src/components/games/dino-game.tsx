@@ -80,20 +80,64 @@ export function DinoGame() {
     }
   };
 
+  // Stop game loop
+  const stopGameLoop = useCallback(() => {
+    if (gameLoopRef.current) {
+      cancelAnimationFrame(gameLoopRef.current);
+      gameLoopRef.current = undefined;
+    }
+  }, []);
+
+  // Clear canvas
+  const clearCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    // Clear with black background
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    
+    // Draw ground
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, GROUND_Y, CANVAS_WIDTH, 20);
+    
+    // Draw static dino
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(50, 150, 40, 40);
+    
+    // Draw title text
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '24px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('DIOOOOO', CANVAS_WIDTH / 2, 50);
+    ctx.font = '14px Arial';
+    ctx.fillText('Press Play to Start!', CANVAS_WIDTH / 2, 80);
+    ctx.textAlign = 'left';
+  }, []);
+
   // Reset game
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
+    stopGameLoop();
     dinoRef.current = { x: 50, y: 150, width: 40, height: 40, velocityY: 0, isJumping: false };
     obstaclesRef.current = [];
     scoreRef.current = 0;
     gameSpeedRef.current = 3;
     setScore(0);
-  };
+    
+    // Clear canvas when resetting
+    if (gameState !== 'playing') {
+      clearCanvas();
+    }
+  }, [stopGameLoop, gameState, clearCanvas]);
 
   // Start game
-  const startGame = () => {
+  const startGame = useCallback(() => {
     resetGame();
     setGameState('playing');
-  };
+  }, [resetGame]);
 
   // Game loop
   const gameLoop = useCallback(() => {
@@ -207,18 +251,23 @@ export function DinoGame() {
   useEffect(() => {
     if (gameState === 'playing') {
       gameLoopRef.current = requestAnimationFrame(gameLoop);
+    } else {
+      stopGameLoop();
     }
-    return () => {
-      if (gameLoopRef.current) {
-        cancelAnimationFrame(gameLoopRef.current);
-      }
-    };
-  }, [gameState, gameLoop]);
+    return stopGameLoop;
+  }, [gameState, gameLoop, stopGameLoop]);
 
   // Load leaderboard on mount and when game state changes
   useEffect(() => {
     fetchLeaderboard();
   }, [fetchLeaderboard]);
+
+  // Handle canvas display for different game states
+  useEffect(() => {
+    if (gameState === 'menu' || gameState === 'gameOver' || gameState === 'leaderboard') {
+      clearCanvas();
+    }
+  }, [gameState, clearCanvas]);
 
   // Refresh leaderboard when viewing it
   useEffect(() => {
