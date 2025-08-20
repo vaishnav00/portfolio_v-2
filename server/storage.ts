@@ -1,5 +1,7 @@
-import { type User, type InsertUser, type DinoScore, type InsertDinoScore, type ContactMessage, type InsertContactMessage } from "@shared/schema";
+import { users, dinoScores, contactMessages, type User, type InsertUser, type DinoScore, type InsertDinoScore, type ContactMessage, type InsertContactMessage } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { db } from "./db";
+import { eq, desc } from "drizzle-orm";
 
 // modify the interface with any CRUD methods
 // you might need
@@ -81,4 +83,57 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export class DatabaseStorage implements IStorage {
+  async getUser(id: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
+    return user;
+  }
+
+  async getTopDinoScores(limit: number): Promise<DinoScore[]> {
+    const scores = await db
+      .select()
+      .from(dinoScores)
+      .orderBy(desc(dinoScores.score))
+      .limit(limit);
+    return scores;
+  }
+
+  async createDinoScore(insertScore: InsertDinoScore): Promise<DinoScore> {
+    const [score] = await db
+      .insert(dinoScores)
+      .values(insertScore)
+      .returning();
+    return score;
+  }
+
+  async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
+    const [message] = await db
+      .insert(contactMessages)
+      .values(insertMessage)
+      .returning();
+    return message;
+  }
+
+  async getContactMessages(): Promise<ContactMessage[]> {
+    const messages = await db
+      .select()
+      .from(contactMessages)
+      .orderBy(desc(contactMessages.createdAt));
+    return messages;
+  }
+}
+
+export const storage = new DatabaseStorage();
