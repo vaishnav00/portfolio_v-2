@@ -33,6 +33,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const score = await storage.createDinoScore(result.data);
+      
+      // Save to Google Sheets
+      const sheetsSaved = await googleSheetsService.saveDinoScore({
+        playerName: result.data.playerName,
+        score: result.data.score,
+        timestamp: (score.createdAt || new Date()).toISOString()
+      });
+
+      if (sheetsSaved) {
+        console.log('Dino score saved to Google Sheets');
+      }
+
       res.status(201).json(score);
     } catch (error) {
       console.error("Failed to create dino score:", error);

@@ -19,9 +19,12 @@ Preferred communication style: Simple, everyday language.
 - Messages include name, email, message content, and timestamp
 - Added SendGrid email notifications: automatic emails sent to vaishnavchandran00@gmail.com when someone contacts through portfolio
 - Email includes sender details, message content, timestamp, and link to view all messages
-- Integrated Google Sheets API for automatic spreadsheet logging of all contact submissions
+- Integrated Google Sheets API with dual-tab functionality:
+  - "Contact Form Submissions" tab: automatic logging of all contact form data
+  - "Dino Game Leaderboard" tab: automatic logging of all game scores
 - Created GOOGLE_SHEETS_SETUP.md with detailed configuration instructions
 - System gracefully handles missing Google Sheets credentials with fallback to database-only storage
+- Both contact submissions and dino game scores sync to Google Sheets in real-time
 
 ### Social Media Integration (July 30, 2025)
 - Added authentic social media links: LinkedIn, GitHub, and Twitter

@@ -8,8 +8,16 @@ interface ContactData {
   timestamp: string;
 }
 
+interface DinoScoreData {
+  playerName: string;
+  score: number;
+  timestamp: string;
+}
+
 export class GoogleSheetsService {
   private doc: GoogleSpreadsheet | null = null;
+  private contactSheet: any = null;
+  private dinoSheet: any = null;
   private isInitialized = false;
 
   async initialize() {
@@ -64,32 +72,56 @@ export class GoogleSheetsService {
       this.doc = new GoogleSpreadsheet(sheetId!, serviceAccountAuth);
       await this.doc.loadInfo();
 
-      // Get or create the first sheet
-      let sheet = this.doc.sheetsByIndex[0];
+      // Setup contact form sheet
+      let contactSheet = this.doc.sheetsByTitle['Contact Form Submissions'] || this.doc.sheetsByIndex[0];
       
-      // If no sheets exist, create one
-      if (!sheet) {
-        sheet = await this.doc.addSheet({ 
+      if (!contactSheet) {
+        contactSheet = await this.doc.addSheet({ 
           title: 'Contact Form Submissions',
           headerValues: ['Timestamp', 'Name', 'Email', 'Message']
         });
+        console.log('Created Contact Form Submissions sheet');
       } else {
-        // Check if sheet has any content
+        // Rename first sheet if it doesn't have a proper title
+        if (contactSheet.title === 'Sheet1' || !contactSheet.title.includes('Contact')) {
+          await contactSheet.updateProperties({ title: 'Contact Form Submissions' });
+        }
+        
         try {
-          await sheet.loadHeaderRow();
-          if (!sheet.headerValues || sheet.headerValues.length === 0) {
-            // Sheet exists but has no headers, set them
-            await sheet.setHeaderRow(['Timestamp', 'Name', 'Email', 'Message']);
-            console.log('Added headers to existing Google Sheet');
-          } else {
-            console.log('Google Sheet headers found:', sheet.headerValues);
+          await contactSheet.loadHeaderRow();
+          if (!contactSheet.headerValues || contactSheet.headerValues.length === 0) {
+            await contactSheet.setHeaderRow(['Timestamp', 'Name', 'Email', 'Message']);
+            console.log('Added headers to Contact Form sheet');
           }
         } catch (error) {
-          // Sheet has no content at all, add headers
-          await sheet.setHeaderRow(['Timestamp', 'Name', 'Email', 'Message']);
-          console.log('Initialized empty Google Sheet with headers');
+          await contactSheet.setHeaderRow(['Timestamp', 'Name', 'Email', 'Message']);
+          console.log('Initialized Contact Form sheet with headers');
         }
       }
+      this.contactSheet = contactSheet;
+
+      // Setup dino game leaderboard sheet
+      let dinoSheet = this.doc.sheetsByTitle['Dino Game Leaderboard'];
+      
+      if (!dinoSheet) {
+        dinoSheet = await this.doc.addSheet({
+          title: 'Dino Game Leaderboard', 
+          headerValues: ['Timestamp', 'Player Name', 'Score']
+        });
+        console.log('Created Dino Game Leaderboard sheet');
+      } else {
+        try {
+          await dinoSheet.loadHeaderRow();
+          if (!dinoSheet.headerValues || dinoSheet.headerValues.length === 0) {
+            await dinoSheet.setHeaderRow(['Timestamp', 'Player Name', 'Score']);
+            console.log('Added headers to Dino Game sheet');
+          }
+        } catch (error) {
+          await dinoSheet.setHeaderRow(['Timestamp', 'Player Name', 'Score']);
+          console.log('Initialized Dino Game sheet with headers');
+        }
+      }
+      this.dinoSheet = dinoSheet;
 
       this.isInitialized = true;
       console.log('Google Sheets service initialized successfully');
@@ -100,16 +132,13 @@ export class GoogleSheetsService {
   }
 
   async saveContactSubmission(data: ContactData): Promise<boolean> {
-    if (!this.isInitialized || !this.doc) {
-      console.log('Google Sheets not initialized, skipping save');
+    if (!this.isInitialized || !this.contactSheet) {
+      console.log('Google Sheets not initialized, skipping contact save');
       return false;
     }
 
     try {
-      const sheet = this.doc.sheetsByIndex[0];
-      
-      // Add new row with contact data
-      await sheet.addRow({
+      await this.contactSheet.addRow({
         Timestamp: new Date(data.timestamp).toLocaleString('en-US', {
           timeZone: 'UTC',
           year: 'numeric',
@@ -128,6 +157,35 @@ export class GoogleSheetsService {
       return true;
     } catch (error) {
       console.error('Failed to save contact submission to Google Sheets:', error);
+      return false;
+    }
+  }
+
+  async saveDinoScore(data: DinoScoreData): Promise<boolean> {
+    if (!this.isInitialized || !this.dinoSheet) {
+      console.log('Google Sheets not initialized, skipping dino score save');
+      return false;
+    }
+
+    try {
+      await this.dinoSheet.addRow({
+        Timestamp: new Date(data.timestamp).toLocaleString('en-US', {
+          timeZone: 'UTC',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        }),
+        'Player Name': data.playerName,
+        Score: data.score
+      });
+
+      console.log('Dino score saved to Google Sheets successfully');
+      return true;
+    } catch (error) {
+      console.error('Failed to save dino score to Google Sheets:', error);
       return false;
     }
   }
