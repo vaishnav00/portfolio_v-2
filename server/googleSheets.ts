@@ -23,6 +23,19 @@ export class GoogleSheetsService {
       return;
     }
 
+    // Extract sheet ID from URL if needed
+    let sheetId = process.env.GOOGLE_SHEET_ID;
+    if (sheetId?.includes('docs.google.com')) {
+      const match = sheetId.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+      if (match) {
+        sheetId = match[1];
+        console.log('Extracted sheet ID from URL:', sheetId);
+      } else {
+        console.log('Google Sheets: Invalid sheet URL format');
+        return;
+      }
+    }
+
     // Validate private key format
     const privateKey = process.env.GOOGLE_PRIVATE_KEY;
     if (privateKey.length < 1000 || !privateKey.includes('BEGIN PRIVATE KEY')) {
@@ -39,6 +52,7 @@ export class GoogleSheetsService {
       const formattedKey = privateKey.replace(/\\n/g, '\n');
 
       console.log('Initializing Google Sheets with service account:', process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+      console.log('Using sheet ID:', sheetId);
 
       const serviceAccountAuth = new JWT({
         email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -47,7 +61,7 @@ export class GoogleSheetsService {
       });
 
       // Initialize the Google Spreadsheet
-      this.doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, serviceAccountAuth);
+      this.doc = new GoogleSpreadsheet(sheetId!, serviceAccountAuth);
       await this.doc.loadInfo();
 
       // Get or create the first sheet
@@ -60,10 +74,20 @@ export class GoogleSheetsService {
           headerValues: ['Timestamp', 'Name', 'Email', 'Message']
         });
       } else {
-        // Set headers if they don't exist
-        await sheet.loadHeaderRow();
-        if (!sheet.headerValues || sheet.headerValues.length === 0) {
+        // Check if sheet has any content
+        try {
+          await sheet.loadHeaderRow();
+          if (!sheet.headerValues || sheet.headerValues.length === 0) {
+            // Sheet exists but has no headers, set them
+            await sheet.setHeaderRow(['Timestamp', 'Name', 'Email', 'Message']);
+            console.log('Added headers to existing Google Sheet');
+          } else {
+            console.log('Google Sheet headers found:', sheet.headerValues);
+          }
+        } catch (error) {
+          // Sheet has no content at all, add headers
           await sheet.setHeaderRow(['Timestamp', 'Name', 'Email', 'Message']);
+          console.log('Initialized empty Google Sheet with headers');
         }
       }
 
