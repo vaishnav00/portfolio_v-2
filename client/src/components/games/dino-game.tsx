@@ -126,17 +126,15 @@ export function DinoGame() {
     scoreRef.current = 0;
     gameSpeedRef.current = 3;
     setScore(0);
-    
-    // Clear canvas when resetting
-    if (gameState !== 'playing') {
-      clearCanvas();
-    }
-  }, [stopGameLoop, gameState, clearCanvas]);
+    setPlayerName('');
+  }, [stopGameLoop]);
 
   // Start game
   const startGame = useCallback(() => {
+    console.log('Starting game...');
     resetGame();
     setGameState('playing');
+    console.log('Game state set to playing');
   }, [resetGame]);
 
   // Game loop
@@ -250,11 +248,17 @@ export function DinoGame() {
   // Start game loop
   useEffect(() => {
     if (gameState === 'playing') {
-      gameLoopRef.current = requestAnimationFrame(gameLoop);
+      // Small delay to ensure state is fully updated
+      const timer = setTimeout(() => {
+        gameLoopRef.current = requestAnimationFrame(gameLoop);
+      }, 10);
+      return () => {
+        clearTimeout(timer);
+        stopGameLoop();
+      };
     } else {
       stopGameLoop();
     }
-    return stopGameLoop;
   }, [gameState, gameLoop, stopGameLoop]);
 
   // Load leaderboard on mount and when game state changes
