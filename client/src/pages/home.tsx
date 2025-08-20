@@ -413,7 +413,7 @@ export default function Home() {
               {
                 title: "AI Traffic Sign Recognition",
                 description: "Built a robust traffic sign classifier using adversarial training (FGSM, PGD) and XAI. Improved model accuracy under attack scenarios and added transparency to model decisions.",
-                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+                image: "https://storage.googleapis.com/kaggle-datasets-images/671172/1181356/ff81ce1445cbda6d2948df4af7109708/dataset-cover.jpg?t=2020-05-24-01-55-46",
                 color: "text-neon-blue",
                 year: "2025"
               },
@@ -441,14 +441,14 @@ export default function Home() {
               {
                 title: "AI-Driven Glaucoma Diagnosis",
                 description: "Utilized GenAI for data-driven glaucoma dataset exploration, feature selection, and predictive modeling to enhance early glaucoma diagnosis.",
-                image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+                image: "https://cdn.reachmd.com/cache/32/ac/32ac231b09198351544c58bd1d28e498.png",
                 color: "text-neon-green",
                 year: "2023"
               },
               {
                 title: "Bio-Signal Smoking Prediction",
                 description: "Developed a machine learning model to predict smoking status from bio-signal data using ML and explainable AI techniques.",
-                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+                image: "https://www.indushealthplus.com/front/media/article_img/smoking-tobacco-effects-thumb.jpg",
                 color: "text-neon-purple",
                 year: "2023"
               },
