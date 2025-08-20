@@ -294,7 +294,9 @@ export default function Home() {
               >
                 <Button
                   variant="outline"
+                  onClick={() => window.open('https://drive.google.com/file/d/1J7N1Qx1jAah5S1F5ogeBud35QsqFi6ju/view?usp=sharing', '_blank')}
                   className="border-2 border-white text-white hover:bg-white hover:text-black px-10 py-5 rounded-lg text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
+                  data-testid="button-download-resume"
                 >
                   Download Resume
                 </Button>
@@ -326,11 +328,27 @@ export default function Home() {
                   achievable—it's simply a matter of time and hard work. If you're ready to
                   build what's next, let's connect.
               </p>
-              <p className="text-lg text-gray-400 mb-8 leading-relaxed">
+              <p className="text-lg text-gray-400 mb-6 leading-relaxed">
                 Beyond my core skills, I'm also passionate about
                   finance and the limitless potential of Generative AI. I'm always
                   exploring new ideas where these fields intersect.
               </p>
+              
+              {/* Resume Link */}
+              <motion.div
+                className="mb-8"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              >
+                <Button
+                  onClick={() => window.open('https://drive.google.com/file/d/1J7N1Qx1jAah5S1F5ogeBud35QsqFi6ju/view?usp=sharing', '_blank')}
+                  className="bg-white text-black hover:bg-gray-200 px-8 py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 clickable"
+                  data-testid="button-view-resume"
+                >
+                  📄 View My Resume
+                </Button>
+              </motion.div>
+              
               <div className="flex space-x-6">
                 {[
                   { icon: Github, color: "text-white", label: "GitHub", href: "https://github.com/vaishnav00" },
