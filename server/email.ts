@@ -1,11 +1,16 @@
 import { MailService } from '@sendgrid/mail';
 
-if (!process.env.SENDGRID_API_KEY) {
-  throw new Error("SENDGRID_API_KEY environment variable must be set");
-}
+const sendgridApiKey = process.env.SENDGRID_API_KEY;
+const isEmailEnabled = !!sendgridApiKey;
 
-const mailService = new MailService();
-mailService.setApiKey(process.env.SENDGRID_API_KEY);
+let mailService: MailService | null = null;
+if (isEmailEnabled) {
+  mailService = new MailService();
+  mailService.setApiKey(sendgridApiKey);
+  console.log('Email service initialized with SendGrid');
+} else {
+  console.log('Email service disabled - SENDGRID_API_KEY not provided');
+}
 
 interface ContactNotificationParams {
   senderName: string;
@@ -17,6 +22,11 @@ interface ContactNotificationParams {
 export async function sendContactNotification(
   params: ContactNotificationParams
 ): Promise<boolean> {
+  if (!isEmailEnabled || !mailService) {
+    console.log('Email service disabled, skipping notification email');
+    return false;
+  }
+
   try {
     const emailContent = `
 New Contact Form Submission
