@@ -1,0 +1,757 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Portfolio | Developer & Designer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'neon-blue': '#00D4FF',
+                        'neon-purple': '#8B5CF6',
+                        'neon-green': '#00FF88',
+                    },
+                    animation: {
+                        'pulse-neon': 'pulse-neon 2s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'slide-up': 'slide-up 0.8s ease-out forwards',
+                        'fade-in': 'fade-in 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        'pulse-neon': {
+                            '0%': { 'box-shadow': '0 0 5px #00D4FF, 0 0 10px #00D4FF, 0 0 15px #00D4FF' },
+                            '100%': { 'box-shadow': '0 0 10px #00D4FF, 0 0 20px #00D4FF, 0 0 30px #00D4FF' }
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        'glow': {
+                            '0%': { 'text-shadow': '0 0 10px #00D4FF' },
+                            '100%': { 'text-shadow': '0 0 20px #00D4FF, 0 0 30px #00D4FF' }
+                        },
+                        'slide-up': {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        'fade-in': {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        body {
+            background: #000000;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-border {
+            border: 1px solid;
+            border-image: linear-gradient(45deg, #00D4FF, #8B5CF6, #00FF88) 1;
+        }
+
+        .magnetic-hover {
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .magnetic-hover:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .text-glitch {
+            position: relative;
+        }
+
+        .text-glitch::before,
+        .text-glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .text-glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: #00D4FF;
+            z-index: -1;
+        }
+
+        .text-glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: #8B5CF6;
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% { transform: translate(0); }
+            15%, 49% { transform: translate(-2px, -1px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% { transform: translate(0); }
+            21%, 62% { transform: translate(2px, 1px); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00D4FF;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .game-canvas {
+            border: 2px solid #00D4FF;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(to right, #00D4FF, #8B5CF6, #00FF88);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-neon-blue animate-glow">Portfolio</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#hero" class="hover:text-neon-blue transition-colors duration-300">Home</a>
+                    <a href="#about" class="hover:text-neon-purple transition-colors duration-300">About</a>
+                    <a href="#projects" class="hover:text-neon-green transition-colors duration-300">Projects</a>
+                    <a href="#games" class="hover:text-neon-blue transition-colors duration-300">Games</a>
+                    <a href="#skills" class="hover:text-neon-purple transition-colors duration-300">Skills</a>
+                    <a href="#contact" class="hover:text-neon-green transition-colors duration-300">Contact</a>
+                </div>
+                <button class="md:hidden text-neon-blue">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Unicorn Studio -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Particle Background -->
+        <div id="particles" class="absolute inset-0 pointer-events-none"></div>
+        
+        <!-- Unicorn Studio Hero Animation -->
+        <div class="w-full max-w-7xl mx-auto px-4">
+            <div class="flex flex-col items-center text-center mb-8">
+                <h1 class="text-6xl md:text-8xl font-black mb-4 text-glitch animate-fade-in" data-text="DEVELOPER">
+                    DEVELOPER
+                </h1>
+                <h2 class="text-2xl md:text-4xl font-light text-neon-blue mb-8 animate-glow">
+                    & Creative Technologist
+                </h2>
+            </div>
+            
+            <!-- Unicorn Studio Embed -->
+            <div class="flex justify-center mb-8">
+                <div data-us-project="FJCMeOcu2KP1kPy5ZnwU" style="width: min(1440px, 100vw); height: 900px; max-width: 100%;"></div>
+            </div>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button class="magnetic-hover glass-effect px-8 py-4 rounded-full border border-neon-blue text-neon-blue font-semibold hover:bg-neon-blue hover:text-black transition-all duration-300">
+                    View My Work
+                </button>
+                <button class="magnetic-hover glass-effect px-8 py-4 rounded-full border border-neon-purple text-neon-purple font-semibold hover:bg-neon-purple hover:text-black transition-all duration-300">
+                    Download Resume
+                </button>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-neon-blue rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-neon-blue rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1 animate-slide-up">
+                    <h2 class="text-5xl font-bold mb-6 text-neon-green">About Me</h2>
+                    <p class="text-xl text-gray-300 mb-6 leading-relaxed">
+                        I'm a passionate full-stack developer and creative technologist with a love for pushing the boundaries of web experiences. I specialize in creating immersive digital solutions that blend cutting-edge technology with stunning visual design.
+                    </p>
+                    <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                        With expertise in React, Node.js, and modern web technologies, I bring ideas to life through clean code and innovative user experiences. When I'm not coding, you'll find me exploring new technologies and creating interactive experiments.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-neon-blue hover:text-white transition-colors text-2xl">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-neon-purple hover:text-white transition-colors text-2xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-neon-green hover:text-white transition-colors text-2xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 flex justify-center animate-float">
+                    <!-- Professional developer portrait with modern lighting setup -->
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=800" 
+                         alt="Professional developer portrait" 
+                         class="w-80 h-80 object-cover rounded-full glass-effect p-4 magnetic-hover" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 text-neon-purple animate-glow">Featured Projects</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="glass-effect rounded-xl overflow-hidden magnetic-hover neon-border group">
+                    <!-- Modern web application dashboard interface -->
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" 
+                         alt="Modern web application dashboard" 
+                         class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-neon-blue">AI Dashboard</h3>
+                        <p class="text-gray-300 mb-4">A comprehensive analytics dashboard built with React and D3.js, featuring real-time data visualization and machine learning insights.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-neon-green hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-neon-purple hover:text-white transition-colors">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-effect rounded-xl overflow-hidden magnetic-hover neon-border group">
+                    <!-- E-commerce mobile application interface on smartphone -->
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" 
+                         alt="E-commerce mobile app interface" 
+                         class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-neon-green">E-Commerce Platform</h3>
+                        <p class="text-gray-300 mb-4">Full-stack e-commerce solution with payment integration, inventory management, and advanced search capabilities.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-neon-green hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-neon-purple hover:text-white transition-colors">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-effect rounded-xl overflow-hidden magnetic-hover neon-border group">
+                    <!-- VR/AR application development workspace with headset -->
+                    <img src="https://images.unsplash.com/photo-1592478411213-6153e4ebc696?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" 
+                         alt="VR/AR application development" 
+                         class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-neon-purple">VR Experience</h3>
+                        <p class="text-gray-300 mb-4">Immersive virtual reality application built with Three.js and WebXR, offering interactive 3D environments.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-neon-green hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-neon-purple hover:text-white transition-colors">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 text-neon-blue animate-glow">Interactive Games</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Tic-Tac-Toe Game -->
+                <div class="glass-effect rounded-xl p-8 neon-border">
+                    <h3 class="text-3xl font-bold mb-6 text-neon-green text-center">Tic-Tac-Toe</h3>
+                    <div class="flex flex-col items-center">
+                        <div id="ticTacToeBoard" class="grid grid-cols-3 gap-2 mb-6">
+                            <!-- Tic-tac-toe cells will be generated by JavaScript -->
+                        </div>
+                        <div class="flex space-x-4 mb-4">
+                            <button id="resetTicTacToe" class="magnetic-hover glass-effect px-6 py-3 rounded-full border border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-black transition-all duration-300">
+                                Reset Game
+                            </button>
+                        </div>
+                        <div id="ticTacToeStatus" class="text-xl font-semibold text-neon-purple">Player X's Turn</div>
+                    </div>
+                </div>
+
+                <!-- Snake Game -->
+                <div class="glass-effect rounded-xl p-8 neon-border">
+                    <h3 class="text-3xl font-bold mb-6 text-neon-purple text-center">Snake Game</h3>
+                    <div class="flex flex-col items-center">
+                        <canvas id="snakeCanvas" class="game-canvas mb-4" width="320" height="320"></canvas>
+                        <div class="flex space-x-4 mb-4">
+                            <button id="startSnake" class="magnetic-hover glass-effect px-6 py-3 rounded-full border border-neon-green text-neon-green hover:bg-neon-green hover:text-black transition-all duration-300">
+                                Start Game
+                            </button>
+                            <button id="resetSnake" class="magnetic-hover glass-effect px-6 py-3 rounded-full border border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-black transition-all duration-300">
+                                Reset
+                            </button>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-semibold text-neon-blue">Score: <span id="snakeScore">0</span></div>
+                            <div class="text-sm text-gray-400 mt-2">Use WASD or Arrow Keys to move</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 text-neon-green animate-glow">Technical Skills</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass-effect rounded-xl p-6 text-center magnetic-hover neon-border">
+                    <i class="fab fa-react text-5xl text-neon-blue mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Frontend</h3>
+                    <p class="text-gray-300">React, Next.js, Vue.js, TypeScript</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-6 text-center magnetic-hover neon-border">
+                    <i class="fas fa-server text-5xl text-neon-purple mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Backend</h3>
+                    <p class="text-gray-300">Node.js, Python, MongoDB, PostgreSQL</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-6 text-center magnetic-hover neon-border">
+                    <i class="fas fa-cloud text-5xl text-neon-green mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Cloud & DevOps</h3>
+                    <p class="text-gray-300">AWS, Docker, Kubernetes, CI/CD</p>
+                </div>
+                
+                <div class="glass-effect rounded-xl p-6 text-center magnetic-hover neon-border">
+                    <i class="fas fa-mobile-alt text-5xl text-neon-blue mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Mobile</h3>
+                    <p class="text-gray-300">React Native, Flutter, iOS, Android</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 text-neon-purple animate-glow">Get In Touch</h2>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="glass-effect rounded-xl p-8 neon-border">
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                            <input type="text" id="name" name="name" required
+                                   class="w-full px-4 py-3 bg-transparent border border-gray-600 rounded-lg focus:border-neon-blue focus:outline-none focus:ring-2 focus:ring-neon-blue/20 transition-all duration-300">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                            <input type="email" id="email" name="email" required
+                                   class="w-full px-4 py-3 bg-transparent border border-gray-600 rounded-lg focus:border-neon-green focus:outline-none focus:ring-2 focus:ring-neon-green/20 transition-all duration-300">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" required
+                                      class="w-full px-4 py-3 bg-transparent border border-gray-600 rounded-lg focus:border-neon-purple focus:outline-none focus:ring-2 focus:ring-neon-purple/20 transition-all duration-300 resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full magnetic-hover glass-effect px-8 py-4 rounded-full border border-neon-blue text-neon-blue font-semibold hover:bg-neon-blue hover:text-black transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">&copy; 2024 Developer Portfolio. Built with passion and cutting-edge technology.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="text-neon-blue hover:text-white transition-colors">
+                    <i class="fab fa-github text-2xl"></i>
+                </a>
+                <a href="#" class="text-neon-purple hover:text-white transition-colors">
+                    <i class="fab fa-linkedin text-2xl"></i>
+                </a>
+                <a href="#" class="text-neon-green hover:text-white transition-colors">
+                    <i class="fab fa-twitter text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Unicorn Studio Script -->
+    <script type="text/javascript">
+        !function(){
+            if(!window.UnicornStudio){
+                window.UnicornStudio={isInitialized:!1};
+                var i=document.createElement("script");
+                i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",
+                i.onload=function(){
+                    window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)
+                },
+                (document.head || document.body).appendChild(i)
+            }
+        }();
+    </script>
+
+    <script>
+        // Particle System
+        (function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particlesContainer.appendChild(particle);
+
+                // Animate particle
+                let posY = parseFloat(particle.style.top);
+                const speed = Math.random() * 0.5 + 0.1;
+                
+                function animateParticle() {
+                    posY -= speed;
+                    if (posY < -5) {
+                        posY = 105;
+                        particle.style.left = Math.random() * 100 + '%';
+                    }
+                    particle.style.top = posY + '%';
+                    requestAnimationFrame(animateParticle);
+                }
+                animateParticle();
+            }
+
+            for (let i = 0; i < particleCount; i++) {
+                createParticle();
+            }
+        })();
+
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('scrollIndicator').style.width = scrolled + '%';
+        });
+
+        // Smooth Scrolling for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Tic-Tac-Toe Game
+        (function() {
+            let board = ['', '', '', '', '', '', '', '', ''];
+            let currentPlayer = 'X';
+            let gameActive = true;
+
+            const winConditions = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                [0, 4, 8], [2, 4, 6] // diagonals
+            ];
+
+            function createBoard() {
+                const boardElement = document.getElementById('ticTacToeBoard');
+                boardElement.innerHTML = '';
+                
+                for (let i = 0; i < 9; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'w-20 h-20 glass-effect border border-neon-blue rounded-lg flex items-center justify-center text-2xl font-bold cursor-pointer hover:bg-neon-blue hover:bg-opacity-20 transition-all duration-300';
+                    cell.addEventListener('click', () => makeMove(i));
+                    boardElement.appendChild(cell);
+                }
+            }
+
+            function makeMove(index) {
+                if (board[index] !== '' || !gameActive) return;
+
+                board[index] = currentPlayer;
+                updateDisplay();
+                
+                if (checkWinner()) {
+                    document.getElementById('ticTacToeStatus').textContent = `Player ${currentPlayer} Wins!`;
+                    gameActive = false;
+                } else if (board.every(cell => cell !== '')) {
+                    document.getElementById('ticTacToeStatus').textContent = "It's a Draw!";
+                    gameActive = false;
+                } else {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                    document.getElementById('ticTacToeStatus').textContent = `Player ${currentPlayer}'s Turn`;
+                }
+            }
+
+            function checkWinner() {
+                return winConditions.some(condition => {
+                    return condition.every(index => board[index] === currentPlayer);
+                });
+            }
+
+            function updateDisplay() {
+                const cells = document.querySelectorAll('#ticTacToeBoard > div');
+                cells.forEach((cell, index) => {
+                    cell.textContent = board[index];
+                    cell.style.color = board[index] === 'X' ? '#00D4FF' : '#8B5CF6';
+                });
+            }
+
+            function resetGame() {
+                board = ['', '', '', '', '', '', '', '', ''];
+                currentPlayer = 'X';
+                gameActive = true;
+                document.getElementById('ticTacToeStatus').textContent = "Player X's Turn";
+                updateDisplay();
+            }
+
+            document.getElementById('resetTicTacToe').addEventListener('click', resetGame);
+            createBoard();
+        })();
+
+        // Snake Game
+        (function() {
+            const canvas = document.getElementById('snakeCanvas');
+            const ctx = canvas.getContext('2d');
+            const scoreElement = document.getElementById('snakeScore');
+
+            const gridSize = 16;
+            const tileCount = canvas.width / gridSize;
+
+            let snake = [{ x: 10, y: 10 }];
+            let food = { x: 15, y: 15 };
+            let dx = 0;
+            let dy = 0;
+            let score = 0;
+            let gameRunning = false;
+
+            function drawGame() {
+                // Clear canvas
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Draw snake
+                ctx.fillStyle = '#00D4FF';
+                ctx.shadowColor = '#00D4FF';
+                ctx.shadowBlur = 10;
+                snake.forEach(segment => {
+                    ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+                });
+
+                // Draw food
+                ctx.fillStyle = '#00FF88';
+                ctx.shadowColor = '#00FF88';
+                ctx.shadowBlur = 15;
+                ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+                
+                ctx.shadowBlur = 0;
+            }
+
+            function updateGame() {
+                if (!gameRunning) return;
+
+                const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+                // Check wall collision
+                if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+                    gameOver();
+                    return;
+                }
+
+                // Check self collision
+                if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                    gameOver();
+                    return;
+                }
+
+                snake.unshift(head);
+
+                // Check food collision
+                if (head.x === food.x && head.y === food.y) {
+                    score += 10;
+                    scoreElement.textContent = score;
+                    generateFood();
+                } else {
+                    snake.pop();
+                }
+
+                drawGame();
+            }
+
+            function generateFood() {
+                food = {
+                    x: Math.floor(Math.random() * tileCount),
+                    y: Math.floor(Math.random() * tileCount)
+                };
+
+                // Make sure food doesn't spawn on snake
+                if (snake.some(segment => segment.x === food.x && segment.y === food.y)) {
+                    generateFood();
+                }
+            }
+
+            function gameOver() {
+                gameRunning = false;
+                ctx.fillStyle = '#FF0000';
+                ctx.font = '24px Inter';
+                ctx.textAlign = 'center';
+                ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
+            }
+
+            function startGame() {
+                snake = [{ x: 10, y: 10 }];
+                dx = 0;
+                dy = 0;
+                score = 0;
+                scoreElement.textContent = score;
+                generateFood();
+                gameRunning = true;
+                drawGame();
+            }
+
+            function resetGame() {
+                gameRunning = false;
+                snake = [{ x: 10, y: 10 }];
+                dx = 0;
+                dy = 0;
+                score = 0;
+                scoreElement.textContent = score;
+                generateFood();
+                drawGame();
+            }
+
+            // Controls
+            document.addEventListener('keydown', (e) => {
+                if (!gameRunning) return;
+
+                const key = e.key.toLowerCase();
+                
+                if ((key === 'w' || key === 'arrowup') && dy !== 1) {
+                    dx = 0; dy = -1;
+                } else if ((key === 's' || key === 'arrowdown') && dy !== -1) {
+                    dx = 0; dy = 1;
+                } else if ((key === 'a' || key === 'arrowleft') && dx !== 1) {
+                    dx = -1; dy = 0;
+                } else if ((key === 'd' || key === 'arrowright') && dx !== -1) {
+                    dx = 1; dy = 0;
+                }
+            });
+
+            document.getElementById('startSnake').addEventListener('click', startGame);
+            document.getElementById('resetSnake').addEventListener('click', resetGame);
+
+            // Game loop
+            setInterval(updateGame, 150);
+            resetGame();
+        })();
+
+        // Contact Form Handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // TODO: Implement actual form submission logic
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            this.reset();
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-slide-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

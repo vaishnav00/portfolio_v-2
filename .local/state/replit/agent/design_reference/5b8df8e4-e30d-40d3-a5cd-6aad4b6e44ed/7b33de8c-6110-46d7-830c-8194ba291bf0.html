@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Portfolio - Alex Chen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-bg': '#111827',
+                        'secondary-bg': '#1F2937',
+                        'accent-blue': '#3B82F6',
+                        'accent-purple': '#8B5CF6',
+                        'text-primary': '#F9FAFB',
+                        'text-secondary': '#9CA3AF'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite alternate',
+                        'slide-in-left': 'slideInLeft 0.8s ease-out forwards',
+                        'slide-in-right': 'slideInRight 0.8s ease-out forwards'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        pulseGlow: {
+                            '0%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+                            '100%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.6)' }
+                        },
+                        slideInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        slideInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body {
+            background-color: #111827;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .loader {
+            border: 4px solid #1F2937;
+            border-top: 4px solid #3B82F6;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .glassmorphism {
+            background: rgba(31, 41, 55, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .game-canvas {
+            border: 2px solid #3B82F6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            background: #0F172A;
+        }
+        
+        .tic-tac-toe-cell {
+            background: #1F2937;
+            border: 1px solid #3B82F6;
+            transition: all 0.3s ease;
+        }
+        
+        .tic-tac-toe-cell:hover {
+            background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+        
+        .project-card {
+            transition: all 0.4s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+<body class="text-text-primary overflow-x-hidden">
+    <!-- Pre-loader -->
+    <div id="preloader" class="fixed inset-0 bg-primary-bg flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="loader mx-auto mb-4"></div>
+            <p class="text-text-secondary">Loading amazing content...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 glassmorphism">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold text-accent-blue">Alex Chen</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#hero" class="hover:text-accent-blue transition-colors duration-300">Home</a>
+                    <a href="#about" class="hover:text-accent-blue transition-colors duration-300">About</a>
+                    <a href="#projects" class="hover:text-accent-blue transition-colors duration-300">Projects</a>
+                    <a href="#games" class="hover:text-accent-blue transition-colors duration-300">Games</a>
+                    <a href="#skills" class="hover:text-accent-blue transition-colors duration-300">Skills</a>
+                    <a href="#contact" class="hover:text-accent-blue transition-colors duration-300">Contact</a>
+                </div>
+                <button class="md:hidden text-accent-blue">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0 bg-gradient-to-br from-accent-blue via-transparent to-accent-purple"></div>
+        </div>
+        
+        <!-- Unicorn Studio Animation -->
+        <div data-us-project="FJCMe0cu2KP1kPy5ZniwU" style="width: 100%; height: 900px;" class="absolute inset-0"></div>
+        <script async src="https://unicorn.studio/sdk.js"></script>
+        
+        <!-- Hero Content Overlay -->
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 animate-fade-in-up">
+                <span class="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">
+                    Creative Developer
+                </span>
+            </h1>
+            <p class="text-xl md:text-2xl text-text-secondary mb-8 animate-fade-in-up" style="animation-delay: 0.3s;">
+                Building digital experiences that inspire and engage
+            </p>
+            <button class="btn-primary px-8 py-4 rounded-full text-lg font-semibold animate-fade-in-up" style="animation-delay: 0.6s;">
+                Explore My Work
+            </button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="scroll-animate">
+                    <!-- Professional photo placeholder with modern frame -->
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600" 
+                         alt="Professional headshot of Alex Chen" 
+                         class="rounded-2xl shadow-2xl w-full max-w-md mx-auto border-2 border-accent-blue/20">
+                </div>
+                <div class="scroll-animate">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        About <span class="text-accent-blue">Me</span>
+                    </h2>
+                    <p class="text-lg text-text-secondary mb-6 leading-relaxed">
+                        I'm a passionate full-stack developer with 5+ years of experience crafting digital solutions that bridge creativity and functionality. I specialize in building interactive web applications that not only look stunning but deliver exceptional user experiences.
+                    </p>
+                    <p class="text-lg text-text-secondary mb-8 leading-relaxed">
+                        When I'm not coding, you'll find me experimenting with 3D animations, creating indie games, or exploring the latest in web technologies. I believe in the power of clean code and beautiful design working together harmoniously.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="px-4 py-2 bg-secondary-bg rounded-full text-sm">React Specialist</span>
+                        <span class="px-4 py-2 bg-secondary-bg rounded-full text-sm">3D Enthusiast</span>
+                        <span class="px-4 py-2 bg-secondary-bg rounded-full text-sm">Game Developer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-6 bg-secondary-bg/30">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-animate">
+                Featured <span class="text-accent-purple">Projects</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card glassmorphism rounded-2xl p-6 scroll-animate">
+                    <!-- E-commerce platform interface -->
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" 
+                         alt="E-commerce platform dashboard interface" 
+                         class="w-full h-48 object-cover rounded-xl mb-4">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-blue">E-Commerce Platform</h3>
+                    <p class="text-text-secondary mb-4">A modern, responsive e-commerce solution built with React and Node.js featuring real-time inventory management and seamless payment integration.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="text-accent-blue hover:text-accent-purple transition-colors">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                        <a href="#" class="text-accent-blue hover:text-accent-purple transition-colors">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card glassmorphism rounded-2xl p-6 scroll-animate">
+                    <!-- AI-powered analytics dashboard -->
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" 
+                         alt="AI analytics dashboard with charts and graphs" 
+                         class="w-full h-48 object-cover rounded-xl mb-4">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-blue">AI Analytics Dashboard</h3>
+                    <p class="text-text-secondary mb-4">An intelligent data visualization platform that leverages machine learning to provide actionable insights for business decision-making.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="text-accent-blue hover:text-accent-purple transition-colors">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                        <a href="#" class="text-accent-blue hover:text-accent-purple transition-colors">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card glassmorphism rounded-2xl p-6 scroll-animate">
+                    <!-- Mobile app design interface -->
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" 
+                         alt="Mobile app design mockup on smartphone" 
+                         class="w-full h-48 object-cover rounded-xl mb-4">
+                    <h3 class="text-xl font-semibold mb-3 text-accent-blue">Fitness Tracking App</h3>
+                    <p class="text-text-secondary mb-4">A comprehensive mobile application for fitness enthusiasts featuring workout tracking, nutrition planning, and social challenges.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="text-accent-blue hover:text-accent-purple transition-colors">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                        <a href="#" class="text-accent-blue hover:text-accent-purple transition-colors">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card glassmorphism rounded-2xl p-6 scroll-animate md:col-span-2 lg:col-span-3">
+                    <!-- VR/AR development workspace -->
+                    <img src="https://images.unsplash.com/photo-1592478411213-6153e4ebc696?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=300" 
+                         alt="VR development workspace with headset and code" 
+                         class="w-full h-64 object-cover rounded-xl mb-4">
+                    <h3 class="text-2xl font-semibold mb-3 text-accent-purple">VR Experience Platform</h3>
+                    <p class="text-text-secondary mb-4 text-lg">An immersive virtual reality platform for architectural visualization, allowing clients to walk through 3D building models before construction begins.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="text-accent-blue hover:text-accent-purple transition-colors text-lg">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                        <a href="#" class="text-accent-blue hover:text-accent-purple transition-colors text-lg">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="py-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-animate">
+                Interactive <span class="text-accent-blue">Games</span>
+            </h2>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Tic-Tac-Toe Game -->
+                <div class="scroll-animate">
+                    <div class="glassmorphism rounded-2xl p-8">
+                        <h3 class="text-2xl font-semibold mb-6 text-center text-accent-blue">Tic-Tac-Toe</h3>
+                        <div id="tic-tac-toe-board" class="grid grid-cols-3 gap-2 mb-6 max-w-xs mx-auto">
+                            <!-- Game board will be generated by JavaScript -->
+                        </div>
+                        <div class="text-center">
+                            <p id="tic-tac-toe-status" class="text-lg mb-4">Player X's turn</p>
+                            <button id="tic-tac-toe-reset" class="btn-primary px-6 py-2 rounded-lg">Reset Game</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snake Game -->
+                <div class="scroll-animate">
+                    <div class="glassmorphism rounded-2xl p-8">
+                        <h3 class="text-2xl font-semibent mb-6 text-center text-accent-purple">Snake Game</h3>
+                        <div class="text-center mb-4">
+                            <p class="text-lg">Score: <span id="snake-score" class="text-accent-blue font-bold">0</span></p>
+                        </div>
+                        <canvas id="snake-canvas" class="game-canvas mx-auto rounded-lg" width="300" height="300"></canvas>
+                        <div class="text-center mt-4">
+                            <button id="snake-start" class="btn-primary px-6 py-2 rounded-lg">Start Game</button>
+                            <p class="text-sm text-text-secondary mt-2">Use arrow keys to control</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-6 bg-secondary-bg/30">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-animate">
+                Technical <span class="text-accent-purple">Skills</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center scroll-animate glassmorphism rounded-2xl p-6">
+                    <i class="fab fa-react text-4xl text-accent-blue mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Frontend</h3>
+                    <p class="text-text-secondary">React, Vue.js, TypeScript, Tailwind CSS</p>
+                </div>
+                
+                <div class="text-center scroll-animate glassmorphism rounded-2xl p-6">
+                    <i class="fas fa-server text-4xl text-accent-purple mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Backend</h3>
+                    <p class="text-text-secondary">Node.js, Python, PostgreSQL, MongoDB</p>
+                </div>
+                
+                <div class="text-center scroll-animate glassmorphism rounded-2xl p-6">
+                    <i class="fas fa-cube text-4xl text-accent-blue mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">3D & Animation</h3>
+                    <p class="text-text-secondary">Three.js, Blender, WebGL, Framer Motion</p>
+                </div>
+                
+                <div class="text-center scroll-animate glassmorphism rounded-2xl p-6">
+                    <i class="fas fa-cloud text-4xl text-accent-purple mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">DevOps</h3>
+                    <p class="text-text-secondary">AWS, Docker, CI/CD, Vercel</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-animate">
+                Get In <span class="text-accent-blue">Touch</span>
+            </h2>
+            
+            <div class="glassmorphism rounded-2xl p-8 scroll-animate">
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Name</label>
+                            <input type="text" class="w-full px-4 py-3 bg-secondary-bg rounded-lg border border-accent-blue/20 focus:border-accent-blue focus:outline-none transition-colors" placeholder="Your name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 bg-secondary-bg rounded-lg border border-accent-blue/20 focus:border-accent-blue focus:outline-none transition-colors" placeholder="your@email.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Message</label>
+                        <textarea rows="5" class="w-full px-4 py-3 bg-secondary-bg rounded-lg border border-accent-blue/20 focus:border-accent-blue focus:outline-none transition-colors resize-none" placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary px-8 py-3 rounded-lg text-lg font-semibold">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 bg-secondary-bg">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">Alex Chen</h3>
+                <div class="flex justify-center space-x-6 mb-6">
+                    <a href="#" class="text-2xl hover:text-accent-blue transition-colors">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-2xl hover:text-accent-blue transition-colors">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="text-2xl hover:text-accent-blue transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-2xl hover:text-accent-blue transition-colors">
+                        <i class="fab fa-dribbble"></i>
+                    </a>
+                </div>
+                <p class="text-text-secondary">© 2024 Alex Chen. Crafted with passion and lots of coffee.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // Preloader
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    document.getElementById('preloader').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('preloader').style.display = 'none';
+                    }, 500);
+                }, 1500);
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-animate').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Tic-Tac-Toe Game
+            let ticTacToeBoard = ['', '', '', '', '', '', '', '', ''];
+            let currentPlayer = 'X';
+            let gameActive = true;
+
+            function initTicTacToe() {
+                const board = document.getElementById('tic-tac-toe-board');
+                board.innerHTML = '';
+                
+                for (let i = 0; i < 9; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'tic-tac-toe-cell w-20 h-20 flex items-center justify-center text-2xl font-bold cursor-pointer rounded-lg';
+                    cell.dataset.index = i;
+                    cell.addEventListener('click', handleTicTacToeClick);
+                    board.appendChild(cell);
+                }
+            }
+
+            function handleTicTacToeClick(e) {
+                const index = parseInt(e.target.dataset.index);
+                
+                if (ticTacToeBoard[index] !== '' || !gameActive) return;
+                
+                ticTacToeBoard[index] = currentPlayer;
+                e.target.textContent = currentPlayer;
+                e.target.style.color = currentPlayer === 'X' ? '#3B82F6' : '#8B5CF6';
+                
+                if (checkTicTacToeWinner()) {
+                    document.getElementById('tic-tac-toe-status').textContent = `Player ${currentPlayer} wins!`;
+                    gameActive = false;
+                } else if (ticTacToeBoard.every(cell => cell !== '')) {
+                    document.getElementById('tic-tac-toe-status').textContent = "It's a tie!";
+                    gameActive = false;
+                } else {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                    document.getElementById('tic-tac-toe-status').textContent = `Player ${currentPlayer}'s turn`;
+                }
+            }
+
+            function checkTicTacToeWinner() {
+                const winningCombos = [
+                    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                    [0, 4, 8], [2, 4, 6]
+                ];
+                
+                return winningCombos.some(combo => {
+                    return combo.every(index => ticTacToeBoard[index] === currentPlayer);
+                });
+            }
+
+            function resetTicTacToe() {
+                ticTacToeBoard = ['', '', '', '', '', '', '', '', ''];
+                currentPlayer = 'X';
+                gameActive = true;
+                document.getElementById('tic-tac-toe-status').textContent = "Player X's turn";
+                initTicTacToe();
+            }
+
+            // Snake Game
+            let snakeCanvas, snakeCtx;
+            let snake, food, dx, dy, score, gameRunning;
+            const gridSize = 15;
+            const tileCount = 20;
+
+            function initSnake() {
+                snakeCanvas = document.getElementById('snake-canvas');
+                snakeCtx = snakeCanvas.getContext('2d');
+                
+                snake = [{x: 10, y: 10}];
+                food = {x: 15, y: 15};
+                dx = 0;
+                dy = 0;
+                score = 0;
+                gameRunning = false;
+                
+                drawSnake();
+            }
+
+            function drawSnake() {
+                snakeCtx.fillStyle = '#0F172A';
+                snakeCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+                
+                // Draw snake with glow effect
+                snakeCtx.shadowColor = '#3B82F6';
+                snakeCtx.shadowBlur = 10;
+                snakeCtx.fillStyle = '#3B82F6';
+                
+                snake.forEach(segment => {
+                    snakeCtx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+                });
+                
+                // Draw food with glow effect
+                snakeCtx.shadowColor = '#8B5CF6';
+                snakeCtx.shadowBlur = 15;
+                snakeCtx.fillStyle = '#8B5CF6';
+                snakeCtx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+                
+                snakeCtx.shadowBlur = 0;
+            }
+
+            function updateSnake() {
+                if (!gameRunning) return;
+                
+                const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+                
+                // Check wall collision
+                if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+                    gameRunning = false;
+                    alert('Game Over! Score: ' + score);
+                    return;
+                }
+                
+                // Check self collision
+                if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                    gameRunning = false;
+                    alert('Game Over! Score: ' + score);
+                    return;
+                }
+                
+                snake.unshift(head);
+                
+                // Check food collision
+                if (head.x === food.x && head.y === food.y) {
+                    score += 10;
+                    document.getElementById('snake-score').textContent = score;
+                    food = {
+                        x: Math.floor(Math.random() * tileCount),
+                        y: Math.floor(Math.random() * tileCount)
+                    };
+                } else {
+                    snake.pop();
+                }
+                
+                drawSnake();
+            }
+
+            function startSnake() {
+                if (gameRunning) {
+                    gameRunning = false;
+                    document.getElementById('snake-start').textContent = 'Start Game';
+                } else {
+                    snake = [{x: 10, y: 10}];
+                    food = {x: 15, y: 15};
+                    dx = 0;
+                    dy = 0;
+                    score = 0;
+                    document.getElementById('snake-score').textContent = score;
+                    gameRunning = true;
+                    document.getElementById('snake-start').textContent = 'Stop Game';
+                }
+            }
+
+            // Keyboard controls for Snake
+            document.addEventListener('keydown', (e) => {
+                if (!gameRunning) return;
+                
+                switch(e.key) {
+                    case 'ArrowUp':
+                        if (dy !== 1) { dx = 0; dy = -1; }
+                        break;
+                    case 'ArrowDown':
+                        if (dy !== -1) { dx = 0; dy = 1; }
+                        break;
+                    case 'ArrowLeft':
+                        if (dx !== 1) { dx = -1; dy = 0; }
+                        break;
+                    case 'ArrowRight':
+                        if (dx !== -1) { dx = 1; dy = 0; }
+                        break;
+                }
+            });
+
+            // Initialize games
+            initTicTacToe();
+            initSnake();
+
+            // Event listeners
+            document.getElementById('tic-tac-toe-reset').addEventListener('click', resetTicTacToe);
+            document.getElementById('snake-start').addEventListener('click', startSnake);
+
+            // Snake game loop
+            setInterval(updateSnake, 200);
+
+            // TODO: Implement form submission logic
+            // TODO: Add email validation
+            // TODO: Integrate with backend API for contact form
+            // TODO: Add loading states for form submission
+            
+        })();
+    </script>
+</body>
+</html>
