@@ -1,16 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import profileImage from '@assets/7C70F1F1-606B-4AC4-8A52-DA8BCA33930A_1753459890067.jpeg';
-
-// Type declarations for UnicornStudio
-declare global {
-  interface Window {
-    UnicornStudio: {
-      isInitialized: boolean;
-      init?: () => void;
-    };
-  }
-}
 
 import { HiddenGameTrigger } from "@/components/ui/hidden-snake-trigger";
 import AnimatedBackground from "@/components/ui/animated-background";
@@ -51,38 +41,6 @@ export default function Home() {
     message: "",
   });
 
-  useEffect(() => {
-    // Load the exact Unicorn Studio script you provided
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.innerHTML = `
-      !function(){
-        if(!window.UnicornStudio){
-          window.UnicornStudio={isInitialized:!1};
-          var i=document.createElement("script");
-          i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
-          i.onload=function(){
-            window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)
-          };
-          (document.head || document.body).appendChild(i)
-        }
-      }();
-    `;
-
-    // Only add script if it doesn't already exist
-    if (!document.querySelector("script[data-us-init]")) {
-      script.setAttribute("data-us-init", "true");
-      document.head.appendChild(script);
-    }
-
-    return () => {
-      // Clean up on unmount
-      const existingScript = document.querySelector("script[data-us-init]");
-      if (existingScript && existingScript.parentNode) {
-        existingScript.parentNode.removeChild(existingScript);
-      }
-    };
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -186,20 +144,60 @@ export default function Home() {
           {/* Consistent animated background as fallback */}
           <AnimatedBackground />
 
-          {/* Unicorn Studio Embed - scaled and cropped */}
-          <div
-            data-us-project="o91Mszogrc6tA7SO1wXQ"
-            style={{
-              width: "100vw",
-              height: "120vh",
-              position: "absolute",
-              top: "-10vh",
-              left: "0",
-              zIndex: 2,
-              transform: "scale(1.1)",
-              transformOrigin: "center top",
-            }}
-          />
+          {/* Welcome Message */}
+          <div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 2 }}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ 
+                duration: 1.5, 
+                ease: "easeOut",
+                delay: 0.5 
+              }}
+              className="text-center"
+            >
+              <motion.h1
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 1 }}
+                className="text-4xl md:text-6xl lg:text-8xl font-black text-white mb-4"
+              >
+                <motion.span
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 1.2 }}
+                  className="inline-block text-blue-400"
+                >
+                  VSC
+                </motion.span>
+              </motion.h1>
+              
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 1.5 }}
+                className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-6"
+              >
+                Vaishnav S Chandran
+              </motion.h2>
+              
+              <motion.p
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 2 }}
+                className="text-xl md:text-2xl lg:text-3xl text-gray-300 font-light"
+              >
+                Welcome
+              </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 2.5 }}
+                className="mt-8 h-1 w-32 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded-full"
+              />
+            </motion.div>
+          </div>
 
           {/* Gradient overlays to blend with dark theme */}
           <div
